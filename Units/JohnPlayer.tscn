@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Unit.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/Units/Satori_Fly.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/Enemy/Pink Fairy Armadillo.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/Units/Satori_Jump.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/Units/Satori_Jump1.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/Units/Satori_Fly1.png" type="Texture" id=10]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/Pink Fairy Armadillo.png-503d3476776b4bf3850e4e065e5b973e.stex"
+
+[node name="JohnPlayer" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Idle1" type="Sprite" parent="."]
+texture = SubResource( 1 )
+offset = Vector2( 6, -20 )
+flip_h = true
+hframes = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Idle2" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+offset = Vector2( 6, -20 )
+flip_h = true
+hframes = 4
+frame = 1
+
+[node name="Walk1" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+offset = Vector2( 4, -15 )
+flip_h = true
+hframes = 4
+frame = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Walk2" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+offset = Vector2( 4, -16 )
+flip_h = true
+hframes = 4
+frame = 3
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Walk3" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+offset = Vector2( 4, -15 )
+flip_h = true
+hframes = 4
+frame = 2
+
+[node name="Jump1" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 7 )
+offset = Vector2( 6, -20 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Jump2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 6, -7 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, -13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Fly1" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 2 )
+offset = Vector2( 0, -9 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Fly2" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 10 )
+offset = Vector2( 0, -10 )
+__meta__ = {
+"_edit_group_": true
+}

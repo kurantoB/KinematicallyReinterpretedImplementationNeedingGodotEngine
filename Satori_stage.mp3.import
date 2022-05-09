@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Satori_stage.mp3-b11e4fea89b0a8758a7775eaf22a33e1.mp3str"
+
+[deps]
+
+source_file="res://Satori_stage.mp3"
+dest_files=[ "res://.import/Satori_stage.mp3-b11e4fea89b0a8758a7775eaf22a33e1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,664 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://Scripts/GameScene.gd" type="Script" id=2]
+[ext_resource path="res://Graphics/Tiles/square/SquareLeftCorner.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Block.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Graphics/Tiles/ledge/LedgeLeft.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/Tiles/ledge/LedgeRight.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/Tiles/ledge/LedgeMiddle.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/Tiles/square/SquareGroundFlat.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/Tiles/square/SquareLeftWall.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/Tiles/square/SquareRightWall.png" type="Texture" id=11]
+[ext_resource path="res://Graphics/Tiles/square/SquareRightCorner.png" type="Texture" id=12]
+[ext_resource path="res://Graphics/Tiles/square/SquareBlock.png" type="Texture" id=13]
+[ext_resource path="res://Graphics/Tiles/slope/SmallSlopeRight02.png" type="Texture" id=14]
+[ext_resource path="res://Graphics/Tiles/slope/SmallSlopeRight03.png" type="Texture" id=15]
+[ext_resource path="res://Graphics/Tiles/slope/SmallSlopeLeft01.png" type="Texture" id=16]
+[ext_resource path="res://Graphics/Tiles/slope/SmallSlopeLeft03.png" type="Texture" id=17]
+[ext_resource path="res://Graphics/Tiles/door/DoorBlack.png" type="Texture" id=18]
+[ext_resource path="res://Graphics/Tiles/door/DoorLeft02.png" type="Texture" id=19]
+[ext_resource path="res://Graphics/Tiles/door/DoorRight02.png" type="Texture" id=20]
+[ext_resource path="res://Graphics/Tiles/door/DoorPillar01.png" type="Texture" id=21]
+[ext_resource path="res://Graphics/Tiles/door/DoorPillar02.png" type="Texture" id=22]
+[ext_resource path="res://Graphics/Tiles/door/DoorRight01.png" type="Texture" id=23]
+[ext_resource path="res://Graphics/Tiles/door/DoorLeft03.png" type="Texture" id=24]
+[ext_resource path="res://Graphics/Tiles/door/DoorRight03.png" type="Texture" id=25]
+[ext_resource path="res://Graphics/Tiles/door/DoorLeft01.png" type="Texture" id=26]
+[ext_resource path="res://Graphics/Tiles/door/DoorPillar04.png" type="Texture" id=27]
+[ext_resource path="res://Graphics/Tiles/door/DoorPillar03.png" type="Texture" id=28]
+[ext_resource path="res://Graphics/Tiles/spike/SpikeUp.png" type="Texture" id=29]
+[ext_resource path="res://Units/JohnPlayer.tscn" type="PackedScene" id=38]
+
+[node name="Scene" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Background" type="Node" parent="."]
+
+[node name="SpikeUp" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 960, -40 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp2" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 980, -40 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp3" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1000, -40 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp4" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1140, -20 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp5" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1160, -20 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp6" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1180, -20 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp7" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1200, -20 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="SpikeUp8" parent="Background" instance=ExtResource( 4 )]
+position = Vector2( 1220, -20 )
+texture = ExtResource( 29 )
+map_elem_type = -1
+
+[node name="Stage" type="Node" parent="."]
+
+[node name="TopLeftBlock" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( -20, 0 )
+texture = ExtResource( 3 )
+
+[node name="TopBlock" parent="Stage" instance=ExtResource( 4 )]
+texture = ExtResource( 9 )
+
+[node name="TopBlock2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 20, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 40, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 60, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 80, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock6" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 100, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock7" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 120, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock8" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 140, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock9" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock10" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 180, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock11" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 200, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock12" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 220, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock13" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 240, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock14" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 260, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock15" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 280, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock16" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 300, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock17" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 600, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock18" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 620, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock23" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 640, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock24" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 660, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock25" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 680, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock29" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 800, -20 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock30" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 820, -20 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock35" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 980, -20 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock26" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 700, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock27" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 720, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock28" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 740, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock31" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 880, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock32" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 900, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock33" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 920, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock34" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 940, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock36" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1020, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock37" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1040, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock38" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1060, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock39" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1080, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock40" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1140, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock41" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1160, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock42" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1180, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock43" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1200, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock44" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1220, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock45" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1320, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock46" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1340, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock47" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1360, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock48" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1380, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock49" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1400, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock19" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 360, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock20" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 380, 0 )
+texture = ExtResource( 9 )
+
+[node name="LedgeLeft" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 220, -80 )
+texture = ExtResource( 5 )
+map_elem_type = 7
+
+[node name="LedgeMiddle" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 240, -80 )
+texture = ExtResource( 8 )
+map_elem_type = 7
+
+[node name="LedgeRight" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 260, -80 )
+texture = ExtResource( 6 )
+map_elem_type = 7
+
+[node name="LedgeLeft3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 640, -60 )
+texture = ExtResource( 5 )
+map_elem_type = 7
+
+[node name="LedgeMiddle3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 660, -60 )
+texture = ExtResource( 8 )
+map_elem_type = 7
+
+[node name="LedgeMiddle4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 680, -60 )
+texture = ExtResource( 8 )
+map_elem_type = 7
+
+[node name="LedgeRight3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 700, -60 )
+texture = ExtResource( 6 )
+map_elem_type = 7
+
+[node name="LedgeLeft2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 140, -40 )
+texture = ExtResource( 5 )
+map_elem_type = 7
+
+[node name="LedgeMiddle2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 160, -40 )
+texture = ExtResource( 8 )
+map_elem_type = 7
+
+[node name="LedgeRight2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 180, -40 )
+texture = ExtResource( 6 )
+map_elem_type = 7
+
+[node name="LedgeLeft4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1160, -40 )
+texture = ExtResource( 5 )
+map_elem_type = 7
+
+[node name="LedgeMiddle5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1180, -40 )
+texture = ExtResource( 8 )
+map_elem_type = 7
+
+[node name="LedgeRight4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1200, -40 )
+texture = ExtResource( 6 )
+map_elem_type = 7
+
+[node name="SquareBlock9" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock10" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock11" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 560, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock12" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 580, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock13" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 760, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock14" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 780, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock15" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 800, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock16" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 820, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock17" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 840, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock18" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 860, 0 )
+texture = ExtResource( 13 )
+
+[node name="LeftWallBlock" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, -40 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, -20 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, -60 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, -80 )
+texture = ExtResource( 10 )
+
+[node name="TopLeftBlock3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 320, -100 )
+texture = ExtResource( 3 )
+
+[node name="TopLeftBlock4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 500, 0 )
+texture = ExtResource( 3 )
+
+[node name="TopRightBlock3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, -100 )
+texture = ExtResource( 12 )
+
+[node name="TopLeftBlock5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 560, -20 )
+texture = ExtResource( 3 )
+
+[node name="TopRightBlock5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 580, -20 )
+texture = ExtResource( 12 )
+
+[node name="SquareBlock19" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 960, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock20" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 980, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock21" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1000, 0 )
+texture = ExtResource( 13 )
+
+[node name="TopLeftBlock6" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 960, -20 )
+texture = ExtResource( 3 )
+
+[node name="TopRightBlock6" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1000, -20 )
+texture = ExtResource( 12 )
+
+[node name="TopRightBlock4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 400, 0 )
+texture = ExtResource( 12 )
+
+[node name="TopBlock21" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 520, 0 )
+texture = ExtResource( 9 )
+
+[node name="TopBlock22" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 540, 0 )
+texture = ExtResource( 9 )
+
+[node name="RightWallBlock2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, -80 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock3" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, -60 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock4" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, -40 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 340, -20 )
+texture = ExtResource( 11 )
+
+[node name="SquareBlock22" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1100, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock23" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1120, 0 )
+texture = ExtResource( 13 )
+
+[node name="LeftWallBlock5" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1100, -40 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock6" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1100, -20 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock8" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1100, -60 )
+texture = ExtResource( 10 )
+
+[node name="TopLeftBlock7" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1100, -80 )
+texture = ExtResource( 3 )
+
+[node name="TopRightBlock7" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1120, -80 )
+texture = ExtResource( 12 )
+
+[node name="TopRightBlock9" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1420, 0 )
+texture = ExtResource( 12 )
+
+[node name="RightWallBlock6" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1120, -60 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock8" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1120, -40 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock9" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1120, -20 )
+texture = ExtResource( 11 )
+
+[node name="SquareBlock24" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1240, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock25" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1260, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock27" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1280, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock28" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1300, 0 )
+texture = ExtResource( 13 )
+
+[node name="SquareBlock26" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1260, -20 )
+texture = ExtResource( 13 )
+
+[node name="LeftWallBlock7" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1240, -40 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock9" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1240, -20 )
+texture = ExtResource( 10 )
+
+[node name="LeftWallBlock10" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1240, -60 )
+texture = ExtResource( 10 )
+
+[node name="TopLeftBlock8" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1240, -80 )
+texture = ExtResource( 3 )
+
+[node name="TopRightBlock8" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1260, -80 )
+texture = ExtResource( 12 )
+
+[node name="RightWallBlock7" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1260, -60 )
+texture = ExtResource( 11 )
+
+[node name="RightWallBlock10" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1260, -40 )
+texture = ExtResource( 11 )
+
+[node name="SmallRampLeft01" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 760, -20 )
+texture = ExtResource( 16 )
+map_elem_type = 3
+
+[node name="SmallRampLeft03" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 780, -20 )
+texture = ExtResource( 17 )
+map_elem_type = 4
+
+[node name="SmallRampRight02" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 860, -20 )
+texture = ExtResource( 14 )
+map_elem_type = 5
+
+[node name="SmallRampRight03" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 840, -20 )
+texture = ExtResource( 15 )
+map_elem_type = 6
+
+[node name="SmallRampRight04" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1300, -20 )
+texture = ExtResource( 14 )
+map_elem_type = 5
+
+[node name="SmallRampRight05" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1280, -20 )
+texture = ExtResource( 15 )
+map_elem_type = 6
+
+[node name="DoorPillar01" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1360, -20 )
+texture = ExtResource( 21 )
+map_elem_type = -1
+
+[node name="DoorPillar02" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1360, -40 )
+texture = ExtResource( 22 )
+map_elem_type = -1
+
+[node name="DoorPillar03" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1360, -60 )
+texture = ExtResource( 28 )
+map_elem_type = -1
+
+[node name="DoorPillar04" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1360, -80 )
+texture = ExtResource( 27 )
+map_elem_type = -1
+
+[node name="DoorPillar05" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1420, -20 )
+texture = ExtResource( 21 )
+map_elem_type = -1
+
+[node name="DoorPillar06" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1420, -40 )
+texture = ExtResource( 22 )
+map_elem_type = -1
+
+[node name="DoorPillar07" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1420, -60 )
+texture = ExtResource( 28 )
+map_elem_type = -1
+
+[node name="DoorPillar08" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1420, -80 )
+texture = ExtResource( 27 )
+map_elem_type = -1
+
+[node name="DoorLeft01" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1380, -20 )
+texture = ExtResource( 26 )
+map_elem_type = -1
+
+[node name="DoorLeft02" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1380, -40 )
+texture = ExtResource( 19 )
+map_elem_type = -1
+
+[node name="DoorLeft03" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1380, -80 )
+texture = ExtResource( 24 )
+map_elem_type = -1
+
+[node name="DoorRight01" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1400, -20 )
+texture = ExtResource( 23 )
+map_elem_type = -1
+
+[node name="DoorRight02" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1400, -40 )
+texture = ExtResource( 20 )
+map_elem_type = -1
+
+[node name="DoorRight03" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1400, -80 )
+texture = ExtResource( 25 )
+map_elem_type = -1
+
+[node name="DoorBlack" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1400, -60 )
+texture = ExtResource( 18 )
+map_elem_type = -1
+
+[node name="DoorBlack2" parent="Stage" instance=ExtResource( 4 )]
+position = Vector2( 1380, -60 )
+texture = ExtResource( 18 )
+map_elem_type = -1
+
+[node name="Player" parent="." instance=ExtResource( 38 )]
+position = Vector2( 20, -20 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

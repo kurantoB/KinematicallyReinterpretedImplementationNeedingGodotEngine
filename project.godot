@@ -26,8 +26,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Touhou: Enlightenment in Dream Land"
-run/main_scene="res://Scenes/L01S02.tscn"
+config/name="Kinematically Reinterpreted Implementation Needing Godot Engine"
+run/main_scene="res://Scenes/SandboxScene.tscn"
 config/icon="res://icon.png"
 
 [display]

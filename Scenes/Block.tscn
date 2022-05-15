@@ -2,8 +2,7 @@
 
 [ext_resource path="res://Scripts/MapElem.gd" type="Script" id=1]
 
-[node name="Block" type="Sprite"]
+[node name="Sprite" type="Sprite"]
 z_index = -1
-centered = false
 offset = Vector2( 0, -20 )
 script = ExtResource( 1 )

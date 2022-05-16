@@ -1,5 +1,8 @@
 extends Node2D
 
+# base class for units
+# we assume every unit can move and jump so we see their handlers here
+# sprite management is handled here (and subclasses) as well
 class_name Unit
 
 
@@ -11,7 +14,6 @@ export var unit_type : int
 
 var actions = {}
 var unit_conditions = {}
-var timer_actions = {}
 var facing : int = Constants.PlayerInput.RIGHT
 var current_action_time_elapsed : float = 0
 var just_jumped : bool = false
@@ -34,37 +36,15 @@ func _ready():
 func reset_actions():
 	for action_num in actions.keys():
 		actions[action_num] = false
-	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.RECOILING:
-		actions[Constants.ActionType.RECOIL] = true
 
 func process_unit(delta, scene):
-	if unit_type == Constants.UnitType.PLAYER:
-		advance_timers(delta)
 	current_action_time_elapsed += delta
 	execute_actions(delta, scene)
-
-func advance_timers(delta):
-	for timer_action_num in timer_actions.keys():
-		timer_actions[timer_action_num] = max(0, timer_actions[timer_action_num] - delta)
-	current_action_time_elapsed += delta
-	for condition_num in unit_condition_timers.keys():
-		unit_condition_timers[condition_num] = max(0, unit_condition_timers[condition_num] - delta)
-		if unit_condition_timers[condition_num] == 0:
-			unit_conditions[condition_num] = false
 
 func set_current_action(current_action : int):
 	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] != current_action:
 		current_action_time_elapsed = 0
 	unit_conditions[Constants.UnitCondition.CURRENT_ACTION] = current_action
-
-func do_with_timeout(action : int, new_current_action : int = -1):
-	if timer_actions[action] == 0:
-		actions[action] = true
-		timer_actions[action] = Constants.PLAYER_TIMERS[action]
-		if new_current_action != -1:
-			set_current_action(new_current_action)
-		if action == Constants.ActionType.FLOAT:
-			unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
 
 func execute_actions(delta, scene):
 	for action_num in actions.keys():
@@ -75,8 +55,6 @@ func execute_actions(delta, scene):
 				jump()
 			Constants.ActionType.MOVE:
 				move(delta)
-			Constants.ActionType.RECOIL:
-				recoil()
 		actions[action_num] = false
 	handle_moving_status(delta, scene)
 	handle_idle(delta)
@@ -102,7 +80,7 @@ func handle_moving_status(delta, scene):
 	# what we have: facing, current speed, move status, grounded
 	# we want: to set the new intended speed
 	var magnitude : float
-	if unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED] and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+	if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 		magnitude = sqrt(pow(v_speed, 2) + pow(h_speed, 2))
 	else:
 		magnitude = abs(h_speed)
@@ -123,7 +101,7 @@ func handle_moving_status(delta, scene):
 			magnitude = max(0, magnitude - Constants.ACCELERATION * delta)
 	
 	# if is grounded
-	if unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED] and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+	if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 		# make magnitude greater than quantum distance
 		if magnitude > 0 and magnitude < Constants.QUANTUM_DIST:
 			magnitude = Constants.QUANTUM_DIST * 2
@@ -166,10 +144,6 @@ func handle_idle(delta):
 		else:
 			if v_speed < 0:
 				set_sprite("Jump", 1)
-
-func recoil():
-	if current_action_time_elapsed >= Constants.CURRENT_ACTION_TIMERS[unit_type][Constants.UnitCurrentAction.RECOILING]:
-		set_current_action(Constants.UnitCurrentAction.IDLE)
 
 func set_sprite(sprite_class : String, index : int = 0):
 	if not unit_type in Constants.UnitSprites or not sprite_class in Constants.UnitSprites[unit_type]:

@@ -1,3 +1,4 @@
+# Handles unit-environment iteraction
 extends Object
 
 const GameUtils = preload("res://Scripts/GameUtils.gd")
@@ -14,7 +15,7 @@ var top_left_colliders = []
 
 func _init(the_scene : GameScene):
 	scene = the_scene
-	var stage : TileMap = scene.get_node("StageTileMap")
+	var stage : TileMap = scene.get_node("Stage")
 	init_stage_grid(stage)
 	stage.scale.x = Constants.SCALE_FACTOR
 	stage.scale.y = Constants.SCALE_FACTOR
@@ -24,35 +25,25 @@ func _init(the_scene : GameScene):
 	player.position.y = player.position.y * Constants.SCALE_FACTOR
 	player.scale.x = Constants.SCALE_FACTOR
 	player.scale.y = Constants.SCALE_FACTOR
-	
-	if scene.has_node("Background"):
-		var background = scene.get_node("Background")
-		for stage_elem in background.get_children():
-			stage_elem.position.x = stage_elem.position.x * Constants.SCALE_FACTOR
-			stage_elem.position.y = stage_elem.position.y * Constants.SCALE_FACTOR
-			stage_elem.scale.x = Constants.SCALE_FACTOR
-			stage_elem.scale.y = Constants.SCALE_FACTOR
 
 func init_player(player : Unit):
 	player.pos = Vector2(player.position.x / Constants.GRID_SIZE, -1 * player.position.y / Constants.GRID_SIZE)
 
 func interact(unit : Unit, delta):
-	# gravity-affected
-	if unit.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED]:
-		# gravity-affected, grounded
-		if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
-			# gravity-affected, grounded, -v
-			if unit.v_speed < 0:
-				ground_movement_interaction(unit, delta)
-			# gravity-affected, grounded, v-speed-zero
-			else:
-				unit.h_speed = 0
-				unit.v_speed = 0
-				ground_still_placement(unit)
+	# grounded
+	if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+		# grounded, -v
+		if unit.v_speed < 0:
+			ground_movement_interaction(unit, delta)
+		# grounded, v-speed-zero
 		else:
-			var gravity_factor = Constants.GRAVITY
-			var max_fall_speed = Constants.MAX_FALL_SPEED
-			unit.v_speed = max(unit.v_speed - (gravity_factor * delta), max_fall_speed)
+			unit.h_speed = 0
+			unit.v_speed = 0
+			ground_still_placement(unit)
+	else:
+		var gravity_factor = Constants.GRAVITY
+		var max_fall_speed = Constants.MAX_FALL_SPEED
+		unit.v_speed = max(unit.v_speed - (gravity_factor * delta), max_fall_speed)
 
 	if not (unit.h_speed == 0 and unit.v_speed == 0):
 		# regular collision
@@ -275,7 +266,7 @@ func check_collision(unit : Unit, collider, collision_directions, delta):
 				unit.set_current_action(Constants.UnitCurrentAction.IDLE)
 		elif collision_dir == Constants.DIRECTION.LEFT or collision_dir == Constants.DIRECTION.RIGHT:
 			if (collider[0].x == collider[1].x
-			or (not unit.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED] or not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND])):
+			or not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 				unit.h_speed = 0
 			var collider_set_pos_x = collision_point.x
 			if collision_dir == Constants.DIRECTION.LEFT:
@@ -289,9 +280,7 @@ func check_collision(unit : Unit, collider, collision_directions, delta):
 func check_ground_collision(unit : Unit, collider, collision_point : Vector2, unit_env_collider):
 	if not unit_env_collider[1].has(Constants.DIRECTION.DOWN):
 		return
-	if ((unit.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED]
-		and not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
-		or not unit.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED])
+	if (not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and (collider[0].y == collider[1].y or (collider[0].x != collider[1].x and collider[0].y != collider[1].y))):
 		if collider[0].y == collider[1].y:
 			unit.v_speed = 0
@@ -308,8 +297,7 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		unit.pos.y = unit.pos.y + y_dist_to_translate
 		var x_dist_to_translate = collision_point.x - (unit.pos.x + unit_env_collider[0].x)
 		unit.pos.x = unit.pos.x + x_dist_to_translate
-		if unit.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED]:
-			unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = true
+		unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = true
 	
 
 # returns true/false, collision direction, collision point, and unit env collider

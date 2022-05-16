@@ -1,5 +1,10 @@
 extends Node
 
+# _process(delta) is called by this class
+# player input is handled here
+# unit declares its intention in process_unit()
+# stage environment interacts with the unit in interact()
+# unit executes its resulting state in react()
 class_name GameScene
 
 export var tile_set_name: String
@@ -44,9 +49,6 @@ func handle_player_input():
 			input_table[input_num] = true
 		else:
 			input_table[input_num] = false
-	
-	if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.RECOILING:
-		return
 	
 	if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING and !input_table[Constants.PlayerInput.GBA_A]:
 		player.set_current_action(Constants.UnitCurrentAction.IDLE)
@@ -93,7 +95,6 @@ func handle_player_input():
 			player.actions[Constants.ActionType.JUMP] = true
 		elif (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
-		and player.unit_conditions[Constants.UnitCondition.IS_GRAVITY_AFFECTED]
 		and !player.just_jumped):
 			player.actions[Constants.ActionType.JUMP] = true
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)

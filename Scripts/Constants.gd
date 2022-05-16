@@ -5,21 +5,17 @@ enum UnitType {
 enum ActionType {
 	JUMP,
 	MOVE,
-	RECOIL,
 }
 
 enum UnitCondition {
 	CURRENT_ACTION,
 	IS_ON_GROUND,
-	IS_RECOILING,
 	MOVING_STATUS,
-	IS_GRAVITY_AFFECTED,
 }
 
 enum UnitCurrentAction {
 	IDLE,
 	JUMPING,
-	RECOILING
 }
 
 enum UnitMovingStatus {
@@ -42,7 +38,6 @@ const UNIT_TYPE_ACTIONS = {
 	UnitType.PLAYER: [
 		ActionType.JUMP,
 		ActionType.MOVE,
-		ActionType.RECOIL,
 	],
 }
 
@@ -57,7 +52,6 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	UnitType.PLAYER: [
 		UnitCurrentAction.IDLE,
 		UnitCurrentAction.JUMPING,
-		UnitCurrentAction.RECOILING,
 	],
 }
 
@@ -71,15 +65,14 @@ const UNIT_TYPE_MOVING_STATUS = {
 const UNIT_TYPE_CONDITIONS = {
 	UnitType.PLAYER: {
 		UnitCondition.CURRENT_ACTION: UNIT_TYPE_CURRENT_ACTIONS[UnitType.PLAYER][UnitCurrentAction.IDLE],
-		UnitCondition.IS_ON_GROUND: true,
+		UnitCondition.IS_ON_GROUND: false,
 		UnitCondition.MOVING_STATUS: UNIT_TYPE_MOVING_STATUS[UnitType.PLAYER][UnitMovingStatus.IDLE],
-		UnitCondition.IS_GRAVITY_AFFECTED: true,
 	},
 }
 
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
-		UnitCurrentAction.JUMPING: 0.75,
+		UnitCurrentAction.JUMPING: 0.4,
 	}
 }
 
@@ -140,12 +133,12 @@ const MOVE_SPEEDS = {
 }
 
 const UNIT_TYPE_JUMP_SPEEDS = {
-	UnitType.PLAYER: 8
+	UnitType.PLAYER: 5
 }
 
 const SCALE_FACTOR = 3
 const GRID_SIZE = 20 # pixels
-const GRAVITY = 35
-const MAX_FALL_SPEED = -14
+const GRAVITY = 30
+const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
-const QUANTUM_DIST = 0.001
+const QUANTUM_DIST = 0.005

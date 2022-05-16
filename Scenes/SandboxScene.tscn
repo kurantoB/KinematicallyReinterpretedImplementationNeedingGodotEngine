@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/GameScene.gd" type="Script" id=5]
 [ext_resource path="res://Units/Player.tscn" type="PackedScene" id=6]
 
-[node name="Scene" type="Node2D"]
+[node name="Scene" type="Node"]
 script = ExtResource( 5 )
 tile_set_name = "TestTileSet"
 

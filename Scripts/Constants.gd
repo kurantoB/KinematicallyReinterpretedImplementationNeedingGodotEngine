@@ -128,7 +128,7 @@ const UnitSprites = {
 	}
 }
 
-const MOVE_SPEEDS = {
+const UNIT_TYPE_MOVE_SPEEDS = {
 	UnitType.PLAYER: 6
 }
 

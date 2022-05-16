@@ -93,7 +93,7 @@ func handle_moving_status(delta, scene):
 		# if is facing-aligned
 		if (h_speed <= 0 and facing == Constants.DIRECTION.LEFT) or (h_speed >= 0 and facing == Constants.DIRECTION.RIGHT):
 			# speed up
-			magnitude = min(Constants.MOVE_SPEEDS[unit_type], magnitude + Constants.ACCELERATION * delta)
+			magnitude = min(Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type], magnitude + Constants.ACCELERATION * delta)
 		# if is not facing-aligned
 		else:
 			# slow down

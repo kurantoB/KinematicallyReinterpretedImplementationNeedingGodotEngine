@@ -17,7 +17,6 @@ offset = Vector2( 0, -15 )
 [node name="Walk" type="AnimatedSprite" parent="."]
 visible = false
 frames = ExtResource( 5 )
-animation = "New Anim"
 offset = Vector2( 0, -15 )
 
 [node name="Jump1" type="Sprite" parent="."]

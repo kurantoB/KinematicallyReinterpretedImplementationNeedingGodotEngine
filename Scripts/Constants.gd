@@ -123,8 +123,8 @@ const UnitSprites = {
 	UnitType.PLAYER: {
 		# "Sprite class": [is animation?, [Node list]]
 		"Idle": [false, ["Idle"]],
-		"Walk": [false, ["Idle"]],
-		"Jump": [false, ["Idle"]],
+		"Walk": [true, ["Walk"]],
+		"Jump": [false, ["Jump1", "Jump2"]],
 	}
 }
 

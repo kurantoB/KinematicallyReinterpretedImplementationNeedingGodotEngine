@@ -73,8 +73,7 @@ func move(delta):
 	if (unit_conditions[Constants.UnitCondition.MOVING_STATUS] != Constants.UnitMovingStatus.IDLE
 	and unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
-		if int(floor(current_action_time_elapsed * 4)) % 3 == 0:
-			set_sprite("Walk")
+		set_sprite("Walk")
 
 func handle_moving_status(delta, scene):
 	# what we have: facing, current speed, move status, grounded

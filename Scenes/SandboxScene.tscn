@@ -8,7 +8,7 @@
 script = ExtResource( 5 )
 tile_set_name = "TestTileSet"
 
-[node name="StageTileMap" type="TileMap" parent="."]
+[node name="Stage" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 20, 20 )
 format = 1

@@ -141,4 +141,4 @@ const GRID_SIZE = 20 # pixels
 const GRAVITY = 30
 const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
-const QUANTUM_DIST = 0.005
+const QUANTUM_DIST = 0.002

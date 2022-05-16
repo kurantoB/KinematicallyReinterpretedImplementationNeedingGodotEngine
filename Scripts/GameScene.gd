@@ -85,7 +85,10 @@ func handle_player_input():
 			player.actions[Constants.ActionType.MOVE] = true
 			new_player_move_status = Constants.UnitMovingStatus.MOVING
 		# set facing
-		player.facing = dir_input
+		if dir_input == Constants.PlayerInput.LEFT:
+			player.facing = Constants.DIRECTION.LEFT
+		elif dir_input == Constants.PlayerInput.RIGHT:
+			player.facing = Constants.DIRECTION.RIGHT
 	
 	if not input_table[Constants.PlayerInput.LEFT] and not input_table[Constants.PlayerInput.RIGHT]:
 		new_player_move_status = Constants.UnitMovingStatus.IDLE

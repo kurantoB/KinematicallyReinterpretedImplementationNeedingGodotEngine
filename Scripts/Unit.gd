@@ -14,7 +14,7 @@ export var unit_type : int
 
 var actions = {}
 var unit_conditions = {}
-var facing : int = Constants.PlayerInput.RIGHT
+var facing : int = Constants.DIRECTION.RIGHT
 var current_action_time_elapsed : float = 0
 var just_jumped : bool = false
 var unit_condition_timers = {}
@@ -92,7 +92,7 @@ func handle_moving_status(delta, scene):
 	# if move status is not idle
 	else:
 		# if is facing-aligned
-		if (h_speed <= 0 and facing == Constants.PlayerInput.LEFT) or (h_speed >= 0 and facing == Constants.PlayerInput.RIGHT):
+		if (h_speed <= 0 and facing == Constants.DIRECTION.LEFT) or (h_speed >= 0 and facing == Constants.DIRECTION.RIGHT):
 			# speed up
 			magnitude = min(Constants.MOVE_SPEEDS[unit_type], magnitude + Constants.ACCELERATION * delta)
 		# if is not facing-aligned
@@ -113,7 +113,7 @@ func handle_moving_status(delta, scene):
 			elif h_speed < 0:
 				h_speed = -1 * Constants.QUANTUM_DIST
 			else:
-				if facing == Constants.PlayerInput.RIGHT:
+				if facing == Constants.DIRECTION.RIGHT:
 					h_speed = Constants.QUANTUM_DIST
 				else:
 					h_speed = -1 * Constants.QUANTUM_DIST
@@ -129,7 +129,7 @@ func handle_moving_status(delta, scene):
 			elif h_speed < 0:
 				h_speed = -1 * magnitude
 			else:
-				if facing == Constants.PlayerInput.RIGHT:
+				if facing == Constants.DIRECTION.RIGHT:
 					h_speed = magnitude
 				else:
 					h_speed = -1 * magnitude
@@ -160,7 +160,7 @@ func set_sprite(sprite_class : String, index : int = 0):
 		current_sprite.visible = true
 		if (Constants.UnitSprites[unit_type][sprite_class][0]):
 			current_sprite.play()
-	if facing == Constants.PlayerInput.LEFT:
+	if facing == Constants.DIRECTION.LEFT:
 		current_sprite.scale.x = -1
 	else:
 		current_sprite.scale.x = 1

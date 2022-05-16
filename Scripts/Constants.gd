@@ -76,6 +76,7 @@ const CURRENT_ACTION_TIMERS = {
 	}
 }
 
+# Position relative to player's origin, list of directions to check for collision
 const ENV_COLLIDERS = {
 	UnitType.PLAYER: [
 		[Vector2(0, 1.5), [DIRECTION.LEFT, DIRECTION.UP, DIRECTION.RIGHT]],

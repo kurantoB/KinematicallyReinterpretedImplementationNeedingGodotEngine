@@ -106,7 +106,7 @@ enum MAP_ELEM_TYPES {
 	LEDGE,
 }
 
-const TilesetMapElems = {
+const TileSetMapElems = {
 	"TestTileSet": {
 		MAP_ELEM_TYPES.SQUARE: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 		MAP_ELEM_TYPES.SLOPE_LEFT: [15, 16],
@@ -141,4 +141,4 @@ const GRID_SIZE = 20 # pixels
 const GRAVITY = 30
 const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
-const QUANTUM_DIST = 0.002
+const QUANTUM_DIST = 0.001

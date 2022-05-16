@@ -80,7 +80,7 @@ func init_stage_grid(tilemap : TileMap):
 			Constants.MAP_ELEM_TYPES.SMALL_SLOPE_RIGHT_1,
 			Constants.MAP_ELEM_TYPES.SMALL_SLOPE_RIGHT_2,
 			Constants.MAP_ELEM_TYPES.LEDGE]:
-			for test_cell_v in Constants.TilesetMapElems[scene.tile_set_name][test_map_elem_type]:
+			for test_cell_v in Constants.TileSetMapElems[scene.tile_set_name][test_map_elem_type]:
 				if test_cell_v == cellv:
 					map_elem_type = test_map_elem_type
 					found_map_elem_type = true

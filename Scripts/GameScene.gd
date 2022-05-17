@@ -36,8 +36,8 @@ func _ready():
 func _process(delta):
 	for unit in units:
 		unit.reset_actions()
-	handle_player_input()	
-	# handle enemy input
+	handle_player_input()
+	# handle other units' input
 	for unit in units:
 		unit.process_unit(delta, self)
 		stage_env.interact(unit, delta)

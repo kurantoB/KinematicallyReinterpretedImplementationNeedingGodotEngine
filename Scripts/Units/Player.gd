@@ -3,6 +3,8 @@ extends Unit
 # Player-specific code
 class_name Player
 
+var just_jumped : bool = false
+
 func execute_actions(delta, scene):
 	for action_num in actions.keys():
 		if !actions[action_num]:

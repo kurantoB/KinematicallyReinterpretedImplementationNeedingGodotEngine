@@ -12,7 +12,7 @@ const Constants = preload("res://Scripts/Constants.gd")
 const Unit = preload("res://Scripts/Unit.gd")
 
 var units = []
-var player : Unit
+var player : Player
 var input_table = {
 	Constants.PlayerInput.UP: false,
 	Constants.PlayerInput.DOWN: false,
@@ -98,13 +98,13 @@ func handle_player_input():
 			player.actions[Constants.ActionType.JUMP] = true
 		elif (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
-		and !player.just_jumped):
+		and not player.unit_conditions[Constants.UnitCondition.JUST_JUMPED]):
 			player.actions[Constants.ActionType.JUMP] = true
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
-			player.just_jumped = true
+			player.unit_conditions[Constants.UnitCondition.JUST_JUMPED] = true
 			player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
 
-	if !input_table[Constants.PlayerInput.GBA_A]:
-		player.just_jumped = false
+	if not input_table[Constants.PlayerInput.GBA_A]:
+		player.unit_conditions[Constants.UnitCondition.JUST_JUMPED] = false
 		
 	player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] = new_player_move_status

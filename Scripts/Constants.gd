@@ -11,6 +11,7 @@ enum UnitCondition {
 	CURRENT_ACTION,
 	IS_ON_GROUND,
 	MOVING_STATUS,
+	JUST_JUMPED,
 }
 
 enum UnitCurrentAction {
@@ -67,6 +68,7 @@ const UNIT_TYPE_CONDITIONS = {
 		UnitCondition.CURRENT_ACTION: UNIT_TYPE_CURRENT_ACTIONS[UnitType.PLAYER][UnitCurrentAction.IDLE],
 		UnitCondition.IS_ON_GROUND: false,
 		UnitCondition.MOVING_STATUS: UNIT_TYPE_MOVING_STATUS[UnitType.PLAYER][UnitMovingStatus.IDLE],
+		UnitCondition.JUST_JUMPED: false,
 	},
 }
 

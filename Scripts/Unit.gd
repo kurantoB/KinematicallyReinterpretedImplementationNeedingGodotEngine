@@ -16,7 +16,6 @@ var actions = {}
 var unit_conditions = {}
 var facing : int = Constants.DIRECTION.RIGHT
 var current_action_time_elapsed : float = 0
-var unit_condition_timers = {}
 
 var pos : Vector2
 var h_speed : float = 0

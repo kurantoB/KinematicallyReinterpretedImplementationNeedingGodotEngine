@@ -217,8 +217,6 @@ func ground_movement_interaction(unit : Unit, delta):
 			unit.pos.x = unit.pos.x + x_dist_to_translate
 			break
 	if not has_ground_collision:
-		if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] and unit.unit_conditions.has(Constants.UnitCondition.JUST_JUMPED):
-			unit.unit_conditions[Constants.UnitCondition.JUST_JUMPED] = true
 		unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
 		if unit.h_speed > 0:
 			angle_helper = [Vector2(0, 0), Vector2(1, 0)]

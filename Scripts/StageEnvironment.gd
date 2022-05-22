@@ -51,15 +51,21 @@ func interact(unit : Unit, delta):
 			for collider in top_right_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.UP, Constants.DIRECTION.RIGHT], delta)
 		elif unit.h_speed > 0 and unit.v_speed <= 0:
+			# We have to make sure every horizontal-direction check is preceded by a down check, and vice versa...
 			for collider in bottom_right_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.RIGHT], delta)
 			for collider in bottom_right_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.DOWN], delta)
+			for collider in bottom_right_colliders:
+				check_collision(unit, collider, [Constants.DIRECTION.RIGHT], delta)
 		elif unit.h_speed <= 0 and unit.v_speed < 0:
+			# We have to make sure every horizontal-direction check is preceded by a down check, and vice versa...
 			for collider in bottom_left_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.LEFT], delta)
 			for collider in bottom_left_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.DOWN], delta)
+			for collider in bottom_left_colliders:
+				check_collision(unit, collider, [Constants.DIRECTION.LEFT], delta)
 		elif unit.h_speed < 0 and unit.v_speed >= 0:
 			for collider in top_left_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.LEFT, Constants.DIRECTION.UP], delta)

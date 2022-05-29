@@ -167,3 +167,11 @@ func react(delta):
 	pos.y = pos.y + v_speed * delta
 	position.x = pos.x * Constants.GRID_SIZE * Constants.SCALE_FACTOR
 	position.y = -1 * pos.y * Constants.GRID_SIZE * Constants.SCALE_FACTOR
+
+func log_unit():
+	print("===UNIT DEBUG====")
+	print("pos: " + str(pos))
+	print("speeds: " + str(Vector2(h_speed, v_speed)))
+	print("facing: " + Constants.DIRECTION.keys()[facing])
+	print("conditions: action: " + Constants.UnitCurrentAction.keys()[unit_conditions[Constants.UnitCondition.CURRENT_ACTION]] + ", grounded: " + str(unit_conditions[Constants.UnitCondition.IS_ON_GROUND]) + ", movement: " + Constants.UnitMovingStatus.keys()[unit_conditions[Constants.UnitCondition.MOVING_STATUS]])
+	print("=================")

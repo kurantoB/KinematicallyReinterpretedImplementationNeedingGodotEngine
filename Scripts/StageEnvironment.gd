@@ -32,14 +32,7 @@ func init_player(player : Unit):
 func interact(unit : Unit, delta):
 	# grounded
 	if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
-		# grounded, -v
-		if unit.v_speed < 0:
-			ground_movement_interaction(unit, delta)
-		# grounded, v-speed-zero
-		else:
-			unit.h_speed = 0
-			unit.v_speed = 0
-			ground_still_placement(unit)
+		interact_grounded(unit, delta)
 	else:
 		var gravity_factor = Constants.GRAVITY
 		var max_fall_speed = Constants.MAX_FALL_SPEED
@@ -69,6 +62,16 @@ func interact(unit : Unit, delta):
 		elif unit.h_speed < 0 and unit.v_speed >= 0:
 			for collider in top_left_colliders:
 				check_collision(unit, collider, [Constants.DIRECTION.LEFT, Constants.DIRECTION.UP], delta)
+
+func interact_grounded(unit : Unit, delta):
+	# grounded, -v
+	if unit.v_speed < 0:
+		ground_movement_interaction(unit, delta)
+	# grounded, v-speed-zero
+	else:
+		unit.h_speed = 0
+		unit.v_speed = 0
+		ground_still_placement(unit)
 
 func init_stage_grid(tilemap : TileMap):
 	for map_elem in tilemap.get_used_cells():
@@ -262,7 +265,7 @@ func check_collision(unit : Unit, collider, collision_directions, delta):
 		var collision_dir = env_collision[1]
 		var collision_point = env_collision[2]
 		var unit_env_collider = env_collision[3]
-		check_ground_collision(unit, collider, collision_point, unit_env_collider)
+		check_ground_collision(unit, collider, collision_point, unit_env_collider, delta)
 		if collision_dir == Constants.DIRECTION.UP:
 			unit.v_speed = 0
 			var collider_set_pos_y = collision_point.y - Constants.QUANTUM_DIST
@@ -283,28 +286,23 @@ func check_collision(unit : Unit, collider, collision_directions, delta):
 			unit.pos.x = unit.pos.x + x_dist_to_translate
 
 # handle collision with ground if any
-func check_ground_collision(unit : Unit, collider, collision_point : Vector2, unit_env_collider):
+func check_ground_collision(unit : Unit, collider, collision_point : Vector2, unit_env_collider, delta):
 	if not unit_env_collider[1].has(Constants.DIRECTION.DOWN):
 		return
 	if (not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and (collider[0].y == collider[1].y or (collider[0].x != collider[1].x and collider[0].y != collider[1].y))):
-		if collider[0].y == collider[1].y:
-			unit.v_speed = 0
+		unit.v_speed = -1 * abs(unit.h_speed)
+		if unit.h_speed > 0:
+			unit.h_speed = Constants.QUANTUM_DIST
 		else:
-			var angle_helper
-			if unit.h_speed > 0:
-				angle_helper = collider
-			else:
-				angle_helper = [collider[1], collider[0]]
-				unit.v_speed = abs(unit.h_speed)
-				GameUtils.reangle_move(unit, angle_helper)
+			unit.h_speed = -1 * Constants.QUANTUM_DIST
 		var collider_set_pos_y = collision_point.y + Constants.QUANTUM_DIST
 		var y_dist_to_translate = collider_set_pos_y - (unit.pos.y + unit_env_collider[0].y)
 		unit.pos.y = unit.pos.y + y_dist_to_translate
 		var x_dist_to_translate = collision_point.x - (unit.pos.x + unit_env_collider[0].x)
 		unit.pos.x = unit.pos.x + x_dist_to_translate
 		unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = true
-	
+		interact_grounded(unit, delta)
 
 # returns true/false, collision direction, collision point, and unit env collider
 func unit_is_colliding_w_env(unit : Unit, collider, directions, delta, is_ground_check = false):

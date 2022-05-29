@@ -102,7 +102,7 @@ func handle_player_input():
 			player.actions[Constants.ActionType.JUMP] = true
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
 			player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
-			player.jump_available = false
+		player.jump_available = false
 	
 	if not input_table[Constants.PlayerInput.GBA_A] and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 		player.jump_available = true

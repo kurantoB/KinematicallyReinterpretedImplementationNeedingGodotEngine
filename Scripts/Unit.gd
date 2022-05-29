@@ -85,17 +85,17 @@ func handle_moving_status(delta, scene):
 	# if move status is idle
 	if unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
 		# slow down
-		magnitude = max(0, magnitude - Constants.ACCELERATION * delta)
+		magnitude = move_toward(magnitude, 0, Constants.ACCELERATION * delta)
 	# if move status is not idle
 	else:
 		# if is facing-aligned
 		if (h_speed <= 0 and facing == Constants.DIRECTION.LEFT) or (h_speed >= 0 and facing == Constants.DIRECTION.RIGHT):
 			# speed up
-			magnitude = min(Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type], magnitude + Constants.ACCELERATION * delta)
+			magnitude = move_toward(magnitude, Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type], Constants.ACCELERATION * delta)
 		# if is not facing-aligned
 		else:
 			# slow down
-			magnitude = max(0, magnitude - Constants.ACCELERATION * delta)
+			magnitude = move_toward(magnitude, 0, Constants.ACCELERATION * delta)
 	
 	# if is grounded
 	if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:

@@ -36,6 +36,14 @@ func set_action(action : int):
 	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
 	actions[action] = true
 
+func set_unit_condition(condition_type : int, condition):
+	assert(condition_type in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys())
+	unit_conditions[condition_type] = condition
+
+func is_current_action_timer_done(current_action : int):
+	assert(current_action in Constants.CURRENT_ACTION_TIMERS[unit_type].keys())
+	return current_action_time_elapsed >= Constants.CURRENT_ACTION_TIMERS[unit_type][current_action]
+
 func reset_actions():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
@@ -45,9 +53,10 @@ func process_unit(delta, scene):
 	execute_actions(delta, scene)
 
 func set_current_action(current_action : int):
+	assert(current_action in Constants.UNIT_TYPE_CURRENT_ACTIONS[unit_type])
 	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] != current_action:
 		current_action_time_elapsed = 0
-	unit_conditions[Constants.UnitCondition.CURRENT_ACTION] = current_action
+	set_unit_condition(Constants.UnitCondition.CURRENT_ACTION, current_action)
 
 func execute_actions(delta, scene):
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
@@ -68,7 +77,7 @@ func jump():
 		if unit_type == Constants.UnitType.PLAYER:
 			if v_speed > 0:
 				set_sprite("Jump", 0)
-	if current_action_time_elapsed >= Constants.CURRENT_ACTION_TIMERS[unit_type][Constants.UnitCurrentAction.JUMPING]:
+	if is_current_action_timer_done(Constants.UnitCurrentAction.JUMPING):
 		set_current_action(Constants.UnitCurrentAction.IDLE)
 		
 

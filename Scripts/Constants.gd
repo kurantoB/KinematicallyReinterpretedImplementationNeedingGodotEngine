@@ -55,18 +55,11 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	],
 }
 
-const UNIT_TYPE_MOVING_STATUS = {
-	UnitType.PLAYER: [
-		UnitMovingStatus.IDLE,
-		UnitMovingStatus.MOVING,
-	],
-}
-
 const UNIT_TYPE_CONDITIONS = {
 	UnitType.PLAYER: {
-		UnitCondition.CURRENT_ACTION: UNIT_TYPE_CURRENT_ACTIONS[UnitType.PLAYER][UnitCurrentAction.IDLE],
+		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
 		UnitCondition.IS_ON_GROUND: false,
-		UnitCondition.MOVING_STATUS: UNIT_TYPE_MOVING_STATUS[UnitType.PLAYER][UnitMovingStatus.IDLE],
+		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
 	},
 }
 
@@ -121,8 +114,8 @@ const TileSetMapElems = {
 }
 
 const UnitSprites = {
+	# "Sprite class": [is animation?, [Node list]]
 	UnitType.PLAYER: {
-		# "Sprite class": [is animation?, [Node list]]
 		"Idle": [false, ["Idle"]],
 		"Walk": [true, ["Walk"]],
 		"Jump": [false, ["Jump1", "Jump2"]],

@@ -87,7 +87,7 @@ func handle_player_input():
 			player.facing = Constants.DIRECTION.RIGHT
 	
 	if not input_table[Constants.PlayerInput.LEFT] and not input_table[Constants.PlayerInput.RIGHT]:
-		player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] = Constants.UnitMovingStatus.IDLE
+		player.set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
 	
 	if input_table[Constants.PlayerInput.GBA_A]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
@@ -97,7 +97,7 @@ func handle_player_input():
 		and player.jump_available):
 			player.set_action(Constants.ActionType.JUMP)
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
-			player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
+			player.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 		player.jump_available = false
 	
 	if not input_table[Constants.PlayerInput.GBA_A] and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:

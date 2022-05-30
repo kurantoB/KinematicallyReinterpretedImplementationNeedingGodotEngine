@@ -226,7 +226,7 @@ func ground_movement_interaction(unit : Unit, delta):
 			unit.pos.x = unit.pos.x + x_dist_to_translate
 			break
 	if not has_ground_collision:
-		unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
+		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 		if unit.h_speed > 0:
 			angle_helper = [Vector2(0, 0), Vector2(1, 0)]
 		else:
@@ -301,7 +301,7 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		unit.pos.y = unit.pos.y + y_dist_to_translate
 		var x_dist_to_translate = collision_point.x - (unit.pos.x + unit_env_collider[0].x)
 		unit.pos.x = unit.pos.x + x_dist_to_translate
-		unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = true
+		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, true)
 		interact_grounded(unit, delta)
 
 # returns true/false, collision direction, collision point, and unit env collider

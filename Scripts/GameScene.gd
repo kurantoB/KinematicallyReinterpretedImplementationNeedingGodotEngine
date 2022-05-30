@@ -22,7 +22,6 @@ var input_table = {
 	Constants.PlayerInput.GBA_B: false,
 	Constants.PlayerInput.GBA_SELECT: false,
 }
-var new_player_move_status
 var stage_env
 
 # Called when the node enters the scene tree for the first time.
@@ -68,13 +67,11 @@ func handle_player_input():
 				# if action-idle + move-idle + grounded
 				if player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 					# set move
-					player.actions[Constants.ActionType.MOVE] = true
-					new_player_move_status = Constants.UnitMovingStatus.MOVING
+					player.handle_input_move()
 				# if action-idle + move-idle + not-grounded
 				else:
 					# set move
-					player.actions[Constants.ActionType.MOVE] = true
-					new_player_move_status = Constants.UnitMovingStatus.MOVING
+					player.handle_input_move()
 			# if action-idle + move-moving
 			else:
 				# set move
@@ -82,8 +79,7 @@ func handle_player_input():
 		# if action-jumping or action-flying
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
 			# set move
-			player.actions[Constants.ActionType.MOVE] = true
-			new_player_move_status = Constants.UnitMovingStatus.MOVING
+			player.handle_input_move()
 		# set facing
 		if dir_input == Constants.PlayerInput.LEFT:
 			player.facing = Constants.DIRECTION.LEFT
@@ -91,7 +87,7 @@ func handle_player_input():
 			player.facing = Constants.DIRECTION.RIGHT
 	
 	if not input_table[Constants.PlayerInput.LEFT] and not input_table[Constants.PlayerInput.RIGHT]:
-		new_player_move_status = Constants.UnitMovingStatus.IDLE
+		player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] = Constants.UnitMovingStatus.IDLE
 	
 	if input_table[Constants.PlayerInput.GBA_A]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
@@ -106,5 +102,3 @@ func handle_player_input():
 	
 	if not input_table[Constants.PlayerInput.GBA_A] and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 		player.jump_available = true
-		
-	player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] = new_player_move_status

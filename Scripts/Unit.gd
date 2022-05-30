@@ -20,7 +20,7 @@ var current_action_time_elapsed : float = 0
 var pos : Vector2
 var h_speed : float = 0
 var v_speed : float = 0
-var ground_speed : float = 0
+var target_move_speed : float
 
 var current_sprite : Node2D
 
@@ -30,6 +30,7 @@ func _ready():
 		actions[action_num] = false
 	for condition_num in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
 		unit_conditions[condition_num] = Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num]
+	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 
 func reset_actions():
 	for action_num in actions.keys():
@@ -91,7 +92,7 @@ func handle_moving_status(delta, scene):
 		# if is facing-aligned
 		if (h_speed <= 0 and facing == Constants.DIRECTION.LEFT) or (h_speed >= 0 and facing == Constants.DIRECTION.RIGHT):
 			# speed up
-			magnitude = move_toward(magnitude, Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type], Constants.ACCELERATION * delta)
+			magnitude = move_toward(magnitude, target_move_speed, Constants.ACCELERATION * delta)
 		# if is not facing-aligned
 		else:
 			# slow down

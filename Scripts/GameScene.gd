@@ -75,7 +75,7 @@ func handle_player_input():
 			# if action-idle + move-moving
 			else:
 				# set move
-				player.actions[Constants.ActionType.MOVE] = true
+				player.set_action(Constants.ActionType.MOVE)
 		# if action-jumping or action-flying
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
 			# set move
@@ -91,11 +91,11 @@ func handle_player_input():
 	
 	if input_table[Constants.PlayerInput.GBA_A]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
-			player.actions[Constants.ActionType.JUMP] = true
+			player.set_action(Constants.ActionType.JUMP)
 		elif (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and player.jump_available):
-			player.actions[Constants.ActionType.JUMP] = true
+			player.set_action(Constants.ActionType.JUMP)
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
 			player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND] = false
 		player.jump_available = false

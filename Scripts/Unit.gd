@@ -32,6 +32,10 @@ func _ready():
 		unit_conditions[condition_num] = Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num]
 	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 
+func set_action(action : int):
+	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
+	actions[action] = true
+
 func reset_actions():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
@@ -46,7 +50,7 @@ func set_current_action(current_action : int):
 	unit_conditions[Constants.UnitCondition.CURRENT_ACTION] = current_action
 
 func execute_actions(delta, scene):
-	for action_num in actions.keys():
+	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		if !actions[action_num]:
 			continue
 		match action_num:

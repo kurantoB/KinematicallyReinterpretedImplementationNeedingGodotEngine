@@ -5,10 +5,6 @@ class_name Player
 
 var jump_available = true
 
-func handle_input_move():
-	set_action(Constants.ActionType.MOVE)
-	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.MOVING)
-
 func execute_actions(delta, scene):
 	for action_num in Constants.UNIT_TYPE_ACTIONS[Constants.UnitType.PLAYER]:
 		if !actions[action_num]:

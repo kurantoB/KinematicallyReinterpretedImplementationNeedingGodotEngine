@@ -48,6 +48,10 @@ func reset_actions():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
 
+func handle_input_move():
+	set_action(Constants.ActionType.MOVE)
+	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.MOVING)
+
 func process_unit(delta, scene):
 	current_action_time_elapsed += delta
 	execute_actions(delta, scene)

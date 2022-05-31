@@ -71,9 +71,8 @@ func execute_actions(delta):
 				jump()
 			Constants.ActionType.MOVE:
 				move()
-		actions[action_num] = false
 	handle_moving_status(delta)
-	handle_idle(delta)
+	handle_idle()
 
 func jump():
 	v_speed = Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type]
@@ -151,7 +150,7 @@ func handle_moving_status(delta):
 		else:
 			h_speed = 0
 
-func handle_idle(delta):
+func handle_idle():
 	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE:
 		if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 			if unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:

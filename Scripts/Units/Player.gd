@@ -9,11 +9,8 @@ func execute_actions(delta):
 	for action_num in Constants.UNIT_TYPE_ACTIONS[Constants.UnitType.PLAYER]:
 		if !actions[action_num]:
 			continue
-		var found_action = true
 		match action_num:
 			# handle custom actions
 			_:
-				found_action = false
-		if found_action:
-			actions[action_num] = false
+				pass
 	.execute_actions(delta)

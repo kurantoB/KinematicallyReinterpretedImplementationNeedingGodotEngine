@@ -61,18 +61,8 @@ func handle_player_input():
 		else:
 			dir_input = Constants.PlayerInput.RIGHT
 		# if action-idle
-		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE:
-			# if action-idle + move-idle
-			if player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
-				# if action-idle + move-idle
-				# set move
-				player.handle_input_move()
-			# if action-idle + move-moving
-			else:
-				# set move
-				player.handle_input_move()
-		# if action-jumping or action-flying
-		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
+		if (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
+		or player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING):
 			# set move
 			player.handle_input_move()
 		# set facing

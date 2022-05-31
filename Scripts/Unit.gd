@@ -52,9 +52,9 @@ func handle_input_move():
 	set_action(Constants.ActionType.MOVE)
 	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.MOVING)
 
-func process_unit(delta, scene):
+func process_unit(delta):
 	current_action_time_elapsed += delta
-	execute_actions(delta, scene)
+	execute_actions(delta)
 
 func set_current_action(current_action : int):
 	assert(current_action in Constants.UNIT_TYPE_CURRENT_ACTIONS[unit_type])
@@ -62,7 +62,7 @@ func set_current_action(current_action : int):
 		current_action_time_elapsed = 0
 	set_unit_condition(Constants.UnitCondition.CURRENT_ACTION, current_action)
 
-func execute_actions(delta, scene):
+func execute_actions(delta):
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		if !actions[action_num]:
 			continue
@@ -70,9 +70,9 @@ func execute_actions(delta, scene):
 			Constants.ActionType.JUMP:
 				jump()
 			Constants.ActionType.MOVE:
-				move(delta)
+				move()
 		actions[action_num] = false
-	handle_moving_status(delta, scene)
+	handle_moving_status(delta)
 	handle_idle(delta)
 
 func jump():
@@ -85,13 +85,13 @@ func jump():
 		set_current_action(Constants.UnitCurrentAction.IDLE)
 		
 
-func move(delta):
+func move():
 	if (unit_conditions[Constants.UnitCondition.MOVING_STATUS] != Constants.UnitMovingStatus.IDLE
 	and unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		set_sprite("Walk")
 
-func handle_moving_status(delta, scene):
+func handle_moving_status(delta):
 	# what we have: facing, current speed, move status, grounded
 	# we want: to set the new intended speed
 	var magnitude : float
@@ -185,11 +185,3 @@ func react(delta):
 	pos.y = pos.y + v_speed * delta
 	position.x = pos.x * Constants.GRID_SIZE * Constants.SCALE_FACTOR
 	position.y = -1 * pos.y * Constants.GRID_SIZE * Constants.SCALE_FACTOR
-
-func log_unit():
-	print("===UNIT DEBUG====")
-	print("pos: " + str(pos))
-	print("speeds: " + str(Vector2(h_speed, v_speed)))
-	print("facing: " + Constants.DIRECTION.keys()[facing])
-	print("conditions: action: " + Constants.UnitCurrentAction.keys()[unit_conditions[Constants.UnitCondition.CURRENT_ACTION]] + ", grounded: " + str(unit_conditions[Constants.UnitCondition.IS_ON_GROUND]) + ", movement: " + Constants.UnitMovingStatus.keys()[unit_conditions[Constants.UnitCondition.MOVING_STATUS]])
-	print("=================")

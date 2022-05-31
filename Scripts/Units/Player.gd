@@ -5,7 +5,7 @@ class_name Player
 
 var jump_available = true
 
-func execute_actions(delta, scene):
+func execute_actions(delta):
 	for action_num in Constants.UNIT_TYPE_ACTIONS[Constants.UnitType.PLAYER]:
 		if !actions[action_num]:
 			continue
@@ -16,4 +16,4 @@ func execute_actions(delta, scene):
 				found_action = false
 		if found_action:
 			actions[action_num] = false
-	.execute_actions(delta, scene)
+	.execute_actions(delta)

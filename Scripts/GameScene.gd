@@ -38,7 +38,7 @@ func _process(delta):
 	handle_player_input()
 	# handle other units' input
 	for unit in units:
-		unit.process_unit(delta, self)
+		unit.process_unit(delta)
 		stage_env.interact(unit, delta)
 		unit.react(delta)
 
@@ -60,7 +60,7 @@ func handle_player_input():
 			dir_input = Constants.PlayerInput.LEFT
 		else:
 			dir_input = Constants.PlayerInput.RIGHT
-		# if action-idle
+		# if action-idle or action-jumping
 		if (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		or player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING):
 			# set move

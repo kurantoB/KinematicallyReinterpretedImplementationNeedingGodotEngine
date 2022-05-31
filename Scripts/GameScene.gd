@@ -64,18 +64,13 @@ func handle_player_input():
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE:
 			# if action-idle + move-idle
 			if player.unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
-				# if action-idle + move-idle + grounded
-				if player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
-					# set move
-					player.handle_input_move()
-				# if action-idle + move-idle + not-grounded
-				else:
-					# set move
-					player.handle_input_move()
+				# if action-idle + move-idle
+				# set move
+				player.handle_input_move()
 			# if action-idle + move-moving
 			else:
 				# set move
-				player.set_action(Constants.ActionType.MOVE)
+				player.handle_input_move()
 		# if action-jumping or action-flying
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
 			# set move

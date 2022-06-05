@@ -5,6 +5,7 @@ extends Node
 # unit declares its intention in process_unit()
 # stage environment interacts with the unit in interact()
 # unit executes its resulting state in react()
+# stage environment interacts with the unit once more in interact_post()
 class_name GameScene
 
 export var tile_set_name: String

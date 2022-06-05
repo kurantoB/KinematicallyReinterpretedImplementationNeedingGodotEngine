@@ -41,6 +41,7 @@ func _process(delta):
 		unit.process_unit(delta)
 		stage_env.interact(unit, delta)
 		unit.react(delta)
+		stage_env.interact_post(unit)
 
 func handle_player_input():
 	for input_num in input_table.keys():

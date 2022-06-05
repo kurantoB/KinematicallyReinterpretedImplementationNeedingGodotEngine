@@ -64,14 +64,14 @@ func interact(unit : Unit, delta):
 				check_collision(unit, collider, [Constants.DIRECTION.LEFT, Constants.DIRECTION.UP], delta)
 
 func interact_grounded(unit : Unit, delta):
-	# grounded, -v
+	# grounded, v-speed-neg
 	if unit.v_speed < 0:
 		ground_movement_interaction(unit, delta)
 	# grounded, v-speed-zero
 	else:
 		unit.h_speed = 0
 		unit.v_speed = 0
-		ground_still_placement(unit)
+		ground_placement(unit)
 
 func init_stage_grid(tilemap : TileMap):
 	for map_elem in tilemap.get_used_cells():
@@ -237,7 +237,7 @@ func ground_movement_interaction(unit : Unit, delta):
 	unit.h_speed = 0
 	GameUtils.reangle_move(unit, angle_helper)
 
-func ground_still_placement(unit : Unit):
+func ground_placement(unit : Unit):
 	for unit_env_collider in Constants.ENV_COLLIDERS[unit.unit_type]:
 		if unit_env_collider[0] != Vector2(0, 0):
 			continue
@@ -339,3 +339,8 @@ func intersect_check_w_collider_uec_dir(unit : Unit, collider, direction_to_chec
 		collision_check + Vector2(unit.h_speed * delta, unit.v_speed * delta),
 		collider[0],
 		collider[1])
+
+func interact_post(unit : Unit):
+	# need to reground unit in case it ended up somewhere underneath ground level
+	if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+		ground_placement(unit)

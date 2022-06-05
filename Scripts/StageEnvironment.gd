@@ -205,18 +205,13 @@ func try_insert_collider(check_colliders, insert_colliders, point_a : Vector2, p
 func ground_movement_interaction(unit : Unit, delta):
 	var has_ground_collision = false
 	var collider_group = []
-	var angle_helper
+	var angle_helper_collider
 	for collider in bottom_left_colliders:
 		# true/false, collision direction, collision point, and unit env collider
 		var env_collision = unit_is_colliding_w_env(unit, collider, [Constants.DIRECTION.DOWN], delta, true)
 		if env_collision[0]:
 			# collided with ground
 			has_ground_collision = true
-			if unit.h_speed > 0:
-				angle_helper = collider
-			else:
-				angle_helper = [collider[1], collider[0]]
-			unit.h_speed = 0
 			var collision_point = env_collision[2]
 			var unit_env_collider = env_collision[3]
 			var collider_set_pos_y = collision_point.y + Constants.QUANTUM_DIST
@@ -224,39 +219,48 @@ func ground_movement_interaction(unit : Unit, delta):
 			unit.pos.y = unit.pos.y + y_dist_to_translate
 			var x_dist_to_translate = collision_point.x - (unit.pos.x + unit_env_collider[0].x)
 			unit.pos.x = unit.pos.x + x_dist_to_translate
+			angle_helper_collider = collider
 			break
 	if not has_ground_collision:
 		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
-		if unit.h_speed > 0:
+	var angle_helper
+	if unit.h_speed > 0:
+		if has_ground_collision:
+			angle_helper = angle_helper_collider
+		else:
 			angle_helper = [Vector2(0, 0), Vector2(1, 0)]
+	else:
+		if has_ground_collision:
+			angle_helper = [angle_helper_collider[1], angle_helper_collider[0]]
 		else:
 			angle_helper = [Vector2(1, 0), Vector2(0, 0)]
-		unit.h_speed = 0
+	unit.h_speed = 0
 	GameUtils.reangle_move(unit, angle_helper)
 
 func ground_still_placement(unit : Unit):
 	for unit_env_collider in Constants.ENV_COLLIDERS[unit.unit_type]:
-		if unit_env_collider[1].has(Constants.DIRECTION.DOWN):
-			for collider in bottom_left_colliders:
-				if collider[0].x == collider[1].x:
-					continue
-				var collision_check : Vector2 = unit.pos + unit_env_collider[0]
-				var altered_collision_check: Vector2 = collision_check
-				altered_collision_check.y = altered_collision_check.y + .3
-				var intersects_results = GameUtils.path_intersects_border(
-					altered_collision_check,
-					collision_check + Vector2(0, -.3),
-					collider[0],
-					collider[1])
-				if intersects_results[0]:
-					var collision_point = intersects_results[1]
-					var collider_set_pos_y = collision_point.y + Constants.QUANTUM_DIST
-					var y_dist_to_translate = collider_set_pos_y - (unit.pos.y + unit_env_collider[0].y)
-					unit.pos.y = unit.pos.y + y_dist_to_translate
-					var collider_set_pos_x = collision_point.x
-					var x_dist_to_translate = collider_set_pos_x - (unit.pos.x + unit_env_collider[0].x)
-					unit.pos.x = unit.pos.x + x_dist_to_translate
-					return
+		if unit_env_collider[0] != Vector2(0, 0):
+			continue
+		for collider in bottom_left_colliders:
+			if collider[0].x == collider[1].x:
+				continue
+			var collision_check : Vector2 = unit.pos + unit_env_collider[0]
+			var altered_collision_check: Vector2 = collision_check
+			altered_collision_check.y = altered_collision_check.y + .9
+			var intersects_results = GameUtils.path_intersects_border(
+				altered_collision_check,
+				collision_check + Vector2(0, -.3),
+				collider[0],
+				collider[1])
+			if intersects_results[0]:
+				var collision_point = intersects_results[1]
+				var collider_set_pos_y = collision_point.y + Constants.QUANTUM_DIST
+				var y_dist_to_translate = collider_set_pos_y - (unit.pos.y + unit_env_collider[0].y)
+				unit.pos.y = unit.pos.y + y_dist_to_translate
+				var collider_set_pos_x = collision_point.x
+				var x_dist_to_translate = collider_set_pos_x - (unit.pos.x + unit_env_collider[0].x)
+				unit.pos.x = unit.pos.x + x_dist_to_translate
+				return
 	
 func check_collision(unit : Unit, collider, collision_directions, delta):
 	# true/false, collision direction, collision point, and unit env collider
@@ -305,9 +309,7 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		interact_grounded(unit, delta)
 
 # returns true/false, collision direction, collision point, and unit env collider
-func unit_is_colliding_w_env(unit : Unit, collider, directions, delta, is_ground_check = false):
-	var found_env_collider : bool = false
-	var found_condition : bool = false;
+func unit_is_colliding_w_env(unit : Unit, collider, directions, delta, grounded_check = false):
 	for direction_to_check in directions:
 		if (((direction_to_check == Constants.DIRECTION.LEFT or direction_to_check == Constants.DIRECTION.RIGHT)
 		and collider[0].y == collider[1].y)
@@ -315,26 +317,23 @@ func unit_is_colliding_w_env(unit : Unit, collider, directions, delta, is_ground
 		and collider[0].x == collider[1].x)):
 			continue
 		for unit_env_collider in Constants.ENV_COLLIDERS[unit.unit_type]:
-			if unit_env_collider[1].has(direction_to_check):
-				if ((direction_to_check == Constants.DIRECTION.LEFT or direction_to_check == Constants.DIRECTION.RIGHT)
-				and (collider[0].x != collider[1].x and collider[0].y != collider[1].y)
-				and unit_env_collider[0] != Vector2(0, 0)):
-					continue;
-				found_env_collider = true
-				var intersects_results = intersect_check_w_collider_uec_dir(unit, collider, direction_to_check, unit_env_collider, is_ground_check, delta, found_condition)
-				if intersects_results[0]:
-					return [intersects_results[0], direction_to_check, intersects_results[1], unit_env_collider]
+			if not unit_env_collider[1].has(direction_to_check):
+				continue
+			if ((direction_to_check == Constants.DIRECTION.LEFT or direction_to_check == Constants.DIRECTION.RIGHT)
+			and (collider[0].x != collider[1].x and collider[0].y != collider[1].y)
+			and unit_env_collider[0] != Vector2(0, 0)):
+				continue;
+			var intersects_results = intersect_check_w_collider_uec_dir(unit, collider, direction_to_check, unit_env_collider, grounded_check, delta)
+			if intersects_results[0]:
+				return [intersects_results[0], direction_to_check, intersects_results[1], unit_env_collider]
 	return [false, -1, Vector2(), {}]
 
-func intersect_check_w_collider_uec_dir(unit : Unit, collider, direction_to_check : int, unit_env_collider, is_ground_check : bool, delta, found_condition : bool):
-	var new_is_ground_check = (is_ground_check
-	or (direction_to_check == Constants.DIRECTION.DOWN and collider[0].y == collider[1].y)
-	or (collider[0].x != collider[1].x and collider[0].y != collider[1].y))
+func intersect_check_w_collider_uec_dir(unit : Unit, collider, direction_to_check : int, unit_env_collider, grounded_check : bool, delta):
 	var unit_env_collider_vector = unit_env_collider[0]
 	var collision_check : Vector2 = unit.pos + unit_env_collider_vector
 	var altered_collision_check: Vector2 = collision_check
-	if is_ground_check:
-		altered_collision_check.y = altered_collision_check.y + .3
+	if grounded_check:
+		altered_collision_check.y = altered_collision_check.y + .9
 	return GameUtils.path_intersects_border(
 		altered_collision_check,
 		collision_check + Vector2(unit.h_speed * delta, unit.v_speed * delta),

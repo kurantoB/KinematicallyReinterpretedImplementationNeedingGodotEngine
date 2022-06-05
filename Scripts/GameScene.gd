@@ -71,7 +71,7 @@ func handle_player_input():
 		elif dir_input == Constants.PlayerInput.RIGHT:
 			player.facing = Constants.DIRECTION.RIGHT
 	
-	if not input_table[Constants.PlayerInput.LEFT] and not input_table[Constants.PlayerInput.RIGHT]:
+	if not player.actions[Constants.ActionType.MOVE]:
 		player.set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
 	
 	if input_table[Constants.PlayerInput.GBA_A]:

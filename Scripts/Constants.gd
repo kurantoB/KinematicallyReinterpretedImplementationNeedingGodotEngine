@@ -55,6 +55,7 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	],
 }
 
+# default conditions
 const UNIT_TYPE_CONDITIONS = {
 	UnitType.PLAYER: {
 		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,

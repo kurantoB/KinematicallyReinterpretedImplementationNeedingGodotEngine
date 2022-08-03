@@ -75,6 +75,7 @@ const UNIT_TYPE_CONDITIONS = {
 	},
 }
 
+# in seconds
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
 		UnitCurrentAction.JUMPING: 0.4,

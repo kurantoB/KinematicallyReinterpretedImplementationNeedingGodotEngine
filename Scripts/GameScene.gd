@@ -66,21 +66,18 @@ func handle_player_input():
 	if input_table[Constants.PlayerInput.LEFT] or input_table[Constants.PlayerInput.RIGHT]:
 		if input_table[Constants.PlayerInput.LEFT] and input_table[Constants.PlayerInput.RIGHT]:
 			input_table[Constants.PlayerInput.LEFT] = false
-		var dir_input
+		var input_dir
 		if input_table[Constants.PlayerInput.LEFT]:
-			dir_input = Constants.PlayerInput.LEFT
+			input_dir = Constants.Direction.LEFT
 		else:
-			dir_input = Constants.PlayerInput.RIGHT
+			input_dir = Constants.Direction.RIGHT
 		# if action-idle or action-jumping
 		if (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		or player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING):
 			# set move
 			player.handle_input_move()
 		# set facing
-		if dir_input == Constants.PlayerInput.LEFT:
-			player.facing = Constants.Direction.LEFT
-		elif dir_input == Constants.PlayerInput.RIGHT:
-			player.facing = Constants.Direction.RIGHT
+		player.facing = input_dir
 	
 	if input_table[Constants.PlayerInput.GBA_A]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:

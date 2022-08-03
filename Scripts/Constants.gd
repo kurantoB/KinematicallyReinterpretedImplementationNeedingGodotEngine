@@ -41,7 +41,7 @@ enum Direction {
 	RIGHT,
 }
 
-enum MapElemTypes {
+enum MapElemType {
 	SQUARE,
 	SLOPE_LEFT,
 	SLOPE_RIGHT,
@@ -103,14 +103,14 @@ const INPUT_MAP = {
 
 const TILE_SET_MAP_ELEMS = {
 	"TestTileSet": {
-		MapElemTypes.SQUARE: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-		MapElemTypes.SLOPE_LEFT: [15, 16],
-		MapElemTypes.SLOPE_RIGHT: [17, 18],
-		MapElemTypes.SMALL_SLOPE_LEFT_1: [9],
-		MapElemTypes.SMALL_SLOPE_LEFT_2: [10, 11],
-		MapElemTypes.SMALL_SLOPE_RIGHT_1: [12],
-		MapElemTypes.SMALL_SLOPE_RIGHT_2: [13, 14],
-		MapElemTypes.LEDGE: [19, 20, 21, 22],
+		MapElemType.SQUARE: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+		MapElemType.SLOPE_LEFT: [15, 16],
+		MapElemType.SLOPE_RIGHT: [17, 18],
+		MapElemType.SMALL_SLOPE_LEFT_1: [9],
+		MapElemType.SMALL_SLOPE_LEFT_2: [10, 11],
+		MapElemType.SMALL_SLOPE_RIGHT_1: [12],
+		MapElemType.SMALL_SLOPE_RIGHT_2: [13, 14],
+		MapElemType.LEDGE: [19, 20, 21, 22],
 	}
 }
 

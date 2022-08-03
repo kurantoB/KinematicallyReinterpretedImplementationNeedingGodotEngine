@@ -81,14 +81,14 @@ func init_stage_grid(tilemap : TileMap):
 		var cellv = tilemap.get_cellv(map_elem)
 		var found_map_elem_type : bool = false
 		for test_map_elem_type in [
-			Constants.MapElemTypes.SQUARE,
-			Constants.MapElemTypes.SLOPE_LEFT,
-			Constants.MapElemTypes.SLOPE_RIGHT,
-			Constants.MapElemTypes.SMALL_SLOPE_LEFT_1,
-			Constants.MapElemTypes.SMALL_SLOPE_LEFT_2,
-			Constants.MapElemTypes.SMALL_SLOPE_RIGHT_1,
-			Constants.MapElemTypes.SMALL_SLOPE_RIGHT_2,
-			Constants.MapElemTypes.LEDGE]:
+			Constants.MapElemType.SQUARE,
+			Constants.MapElemType.SLOPE_LEFT,
+			Constants.MapElemType.SLOPE_RIGHT,
+			Constants.MapElemType.SMALL_SLOPE_LEFT_1,
+			Constants.MapElemType.SMALL_SLOPE_LEFT_2,
+			Constants.MapElemType.SMALL_SLOPE_RIGHT_1,
+			Constants.MapElemType.SMALL_SLOPE_RIGHT_2,
+			Constants.MapElemType.LEDGE]:
 			for test_cell_v in Constants.TILE_SET_MAP_ELEMS[scene.tile_set_name][test_map_elem_type]:
 				if test_cell_v == cellv:
 					map_elem_type = test_map_elem_type
@@ -97,12 +97,12 @@ func init_stage_grid(tilemap : TileMap):
 			if found_map_elem_type:
 				break
 		match map_elem_type:
-			Constants.MapElemTypes.SQUARE:
+			Constants.MapElemType.SQUARE:
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.UP, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.LEFT, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.RIGHT, 1)
-			Constants.MapElemTypes.SLOPE_LEFT:
+			Constants.MapElemType.SLOPE_LEFT:
 				try_insert_collider(
 					[],
 					[top_right_colliders, bottom_right_colliders, bottom_left_colliders],
@@ -111,7 +111,7 @@ func init_stage_grid(tilemap : TileMap):
 				)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.RIGHT, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.SLOPE_RIGHT:
+			Constants.MapElemType.SLOPE_RIGHT:
 				try_insert_collider(
 					[],
 					[bottom_right_colliders, bottom_left_colliders, top_left_colliders],
@@ -120,7 +120,7 @@ func init_stage_grid(tilemap : TileMap):
 				)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.LEFT, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.SMALL_SLOPE_LEFT_1:
+			Constants.MapElemType.SMALL_SLOPE_LEFT_1:
 				try_insert_collider(
 					[],
 					[top_right_colliders, bottom_right_colliders, bottom_left_colliders],
@@ -129,7 +129,7 @@ func init_stage_grid(tilemap : TileMap):
 				)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.RIGHT, .5)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.SMALL_SLOPE_LEFT_2:
+			Constants.MapElemType.SMALL_SLOPE_LEFT_2:
 				try_insert_collider(
 					[],
 					[top_right_colliders, bottom_right_colliders, bottom_left_colliders],
@@ -139,7 +139,7 @@ func init_stage_grid(tilemap : TileMap):
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.LEFT, .5)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.RIGHT, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.SMALL_SLOPE_RIGHT_1:
+			Constants.MapElemType.SMALL_SLOPE_RIGHT_1:
 				try_insert_collider(
 					[],
 					[bottom_right_colliders, bottom_left_colliders, top_left_colliders],
@@ -148,7 +148,7 @@ func init_stage_grid(tilemap : TileMap):
 				)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.LEFT, .5)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.SMALL_SLOPE_RIGHT_2:
+			Constants.MapElemType.SMALL_SLOPE_RIGHT_2:
 				try_insert_collider(
 					[],
 					[bottom_right_colliders, bottom_left_colliders, top_left_colliders],
@@ -158,7 +158,7 @@ func init_stage_grid(tilemap : TileMap):
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.LEFT, 1)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.RIGHT, .5)
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
-			Constants.MapElemTypes.LEDGE:
+			Constants.MapElemType.LEDGE:
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.UP, 1)
 
 

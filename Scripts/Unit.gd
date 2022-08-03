@@ -14,7 +14,7 @@ export var unit_type : int
 
 var actions = {}
 var unit_conditions = {}
-var facing : int = Constants.DIRECTION.RIGHT
+var facing : int = Constants.Direction.RIGHT
 var current_action_time_elapsed : float = 0
 
 var pos : Vector2
@@ -104,7 +104,7 @@ func handle_moving_status(delta):
 	# if move status is not idle
 	else:
 		# if is facing-aligned
-		if (h_speed <= 0 and facing == Constants.DIRECTION.LEFT) or (h_speed >= 0 and facing == Constants.DIRECTION.RIGHT):
+		if (h_speed <= 0 and facing == Constants.Direction.LEFT) or (h_speed >= 0 and facing == Constants.Direction.RIGHT):
 			# speed up
 			magnitude = move_toward(magnitude, target_move_speed, Constants.ACCELERATION * delta)
 		# if is not facing-aligned
@@ -125,7 +125,7 @@ func handle_moving_status(delta):
 			elif h_speed < 0:
 				h_speed = -1 * Constants.QUANTUM_DIST
 			else:
-				if facing == Constants.DIRECTION.RIGHT:
+				if facing == Constants.Direction.RIGHT:
 					h_speed = Constants.QUANTUM_DIST
 				else:
 					h_speed = -1 * Constants.QUANTUM_DIST
@@ -141,7 +141,7 @@ func handle_moving_status(delta):
 			elif h_speed < 0:
 				h_speed = -1 * magnitude
 			else:
-				if facing == Constants.DIRECTION.RIGHT:
+				if facing == Constants.Direction.RIGHT:
 					h_speed = magnitude
 				else:
 					h_speed = -1 * magnitude
@@ -158,9 +158,9 @@ func handle_idle():
 				set_sprite("Jump", 1)
 
 func set_sprite(sprite_class : String, index : int = 0):
-	if not unit_type in Constants.UnitSprites or not sprite_class in Constants.UnitSprites[unit_type]:
+	if not unit_type in Constants.UNIT_SPRITES or not sprite_class in Constants.UNIT_SPRITES[unit_type]:
 		return
-	var node_list = Constants.UnitSprites[unit_type][sprite_class][1]
+	var node_list = Constants.UNIT_SPRITES[unit_type][sprite_class][1]
 	var true_index : int = index
 	if true_index > len(node_list) - 1:
 		true_index = 0
@@ -170,9 +170,9 @@ func set_sprite(sprite_class : String, index : int = 0):
 			current_sprite.visible = false
 		current_sprite = new_sprite
 		current_sprite.visible = true
-		if (Constants.UnitSprites[unit_type][sprite_class][0]):
+		if (Constants.UNIT_SPRITES[unit_type][sprite_class][0]):
 			current_sprite.play()
-	if facing == Constants.DIRECTION.LEFT:
+	if facing == Constants.Direction.LEFT:
 		current_sprite.scale.x = -1
 	else:
 		current_sprite.scale.x = 1

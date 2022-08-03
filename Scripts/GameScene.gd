@@ -78,9 +78,9 @@ func handle_player_input():
 			player.handle_input_move()
 		# set facing
 		if dir_input == Constants.PlayerInput.LEFT:
-			player.facing = Constants.DIRECTION.LEFT
+			player.facing = Constants.Direction.LEFT
 		elif dir_input == Constants.PlayerInput.RIGHT:
-			player.facing = Constants.DIRECTION.RIGHT
+			player.facing = Constants.Direction.RIGHT
 	
 	if input_table[Constants.PlayerInput.GBA_A]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:

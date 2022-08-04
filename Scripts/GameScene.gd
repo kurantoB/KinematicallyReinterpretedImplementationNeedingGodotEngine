@@ -14,24 +14,21 @@ const Unit = preload("res://Scripts/Unit.gd")
 
 var units = []
 var player : Player
+
+# [pressed?, just pressed?, just released?]
 var input_table = {
-	Constants.PlayerInput.UP: false,
-	Constants.PlayerInput.DOWN: false,
-	Constants.PlayerInput.LEFT: false,
-	Constants.PlayerInput.RIGHT: false,
-	Constants.PlayerInput.GBA_A: false,
-	Constants.PlayerInput.GBA_B: false,
-	Constants.PlayerInput.GBA_SELECT: false,
+	Constants.PlayerInput.UP: [false, false, false],
+	Constants.PlayerInput.DOWN: [false, false, false],
+	Constants.PlayerInput.LEFT: [false, false, false],
+	Constants.PlayerInput.RIGHT: [false, false, false],
+	Constants.PlayerInput.GBA_A: [false, false, false],
+	Constants.PlayerInput.GBA_B: [false, false, false],
+	Constants.PlayerInput.GBA_SELECT: [false, false, false],
 }
-var previous_frame_input_table = {
-	Constants.PlayerInput.UP: false,
-	Constants.PlayerInput.DOWN: false,
-	Constants.PlayerInput.LEFT: false,
-	Constants.PlayerInput.RIGHT: false,
-	Constants.PlayerInput.GBA_A: false,
-	Constants.PlayerInput.GBA_B: false,
-	Constants.PlayerInput.GBA_SELECT: false,
-}
+const I_T_PRESSED : int = 0
+const I_T_JUST_PRESSED : int = 1
+const I_T_JUST_RELEASED : int = 2
+
 var stage_env
 
 # Called when the node enters the scene tree for the first time.
@@ -46,7 +43,6 @@ func _process(delta):
 	for unit in units:
 		unit.reset_actions()
 	handle_player_input()
-	update_previous_frame_input_table()
 	# handle other units' input
 	for unit in units:
 		unit.process_unit(delta)
@@ -57,17 +53,28 @@ func _process(delta):
 func handle_player_input():
 	for input_num in input_table.keys():
 		if Input.is_action_pressed(Constants.INPUT_MAP[input_num]):
-			input_table[input_num] = true
+			input_table[input_num][I_T_PRESSED] = true
+			input_table[input_num][I_T_JUST_RELEASED] = false
+			if Input.is_action_just_pressed(Constants.INPUT_MAP[input_num]):
+				input_table[input_num][I_T_JUST_PRESSED] = true
+			else:
+				input_table[input_num][I_T_JUST_PRESSED] = false
 		else:
-			input_table[input_num] = false
+			input_table[input_num][I_T_PRESSED] = false
+			input_table[input_num][I_T_JUST_PRESSED] = false
+			if Input.is_action_just_released(Constants.INPUT_MAP[input_num]):
+				input_table[input_num][I_T_JUST_RELEASED] = true
+			else:
+				input_table[input_num][I_T_JUST_RELEASED] = false
 	
 	# process input_table
 	
-	if input_table[Constants.PlayerInput.LEFT] or input_table[Constants.PlayerInput.RIGHT]:
-		if input_table[Constants.PlayerInput.LEFT] and input_table[Constants.PlayerInput.RIGHT]:
-			input_table[Constants.PlayerInput.LEFT] = false
+	if input_table[Constants.PlayerInput.LEFT][I_T_PRESSED] or input_table[Constants.PlayerInput.RIGHT][I_T_PRESSED]:
+		if input_table[Constants.PlayerInput.LEFT][I_T_PRESSED] and input_table[Constants.PlayerInput.RIGHT][I_T_PRESSED]:
+			input_table[Constants.PlayerInput.LEFT][I_T_PRESSED] = false
+			input_table[Constants.PlayerInput.LEFT][I_T_JUST_PRESSED] = false
 		var input_dir
-		if input_table[Constants.PlayerInput.LEFT]:
+		if input_table[Constants.PlayerInput.LEFT][I_T_PRESSED]:
 			input_dir = Constants.Direction.LEFT
 		else:
 			input_dir = Constants.Direction.RIGHT
@@ -79,12 +86,12 @@ func handle_player_input():
 		# set facing
 		player.facing = input_dir
 	
-	if input_table[Constants.PlayerInput.GBA_A]:
+	if input_table[Constants.PlayerInput.GBA_A][I_T_PRESSED]:
 		if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
 			player.set_action(Constants.ActionType.JUMP)
 		elif (player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
-		and just_pressed(Constants.PlayerInput.GBA_A)):
+		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED]):
 			player.set_action(Constants.ActionType.JUMP)
 			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
 			player.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
@@ -92,20 +99,10 @@ func handle_player_input():
 	# process CURRENT_ACTION
 	
 	if player.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
-		if just_released(Constants.PlayerInput.GBA_A):
+		if input_table[Constants.PlayerInput.GBA_A][I_T_JUST_RELEASED]:
 			player.set_current_action(Constants.UnitCurrentAction.IDLE)
 	
 	# process MOVING_STATUS
 	
 	if not player.actions[Constants.ActionType.MOVE]:
 		player.set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
-
-func update_previous_frame_input_table():
-	for player_input in input_table:
-		previous_frame_input_table[player_input] = input_table[player_input]
-
-func just_pressed(player_input : int):
-	return !previous_frame_input_table[player_input] and input_table[player_input]
-
-func just_released(player_input : int):
-	return previous_frame_input_table[player_input] and !input_table[player_input]

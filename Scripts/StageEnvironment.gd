@@ -307,6 +307,8 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		unit.pos.x = unit.pos.x + x_dist_to_translate
 		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, true)
 		interact_grounded(unit, delta)
+		if (unit.unit_conditions[Constants.UnitCondition.CURRENT_ACTION]) == Constants.UnitCurrentAction.JUMPING:
+			unit.set_current_action(Constants.UnitCurrentAction.IDLE)
 
 # returns true/false, collision direction, collision point, and unit env collider
 func unit_is_colliding_w_env(unit : Unit, collider, directions, delta, grounded_check = false):

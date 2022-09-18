@@ -275,7 +275,7 @@ func check_collision(unit : Unit, collider, collision_directions, delta):
 			var collider_set_pos_y = collision_point.y - Constants.QUANTUM_DIST
 			var y_dist_to_translate = collider_set_pos_y - (unit.pos.y + unit_env_collider[0].y)
 			unit.pos.y = unit.pos.y + y_dist_to_translate
-			if unit.unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING:
+			if unit.get_current_action() == Constants.UnitCurrentAction.JUMPING:
 				unit.set_current_action(Constants.UnitCurrentAction.IDLE)
 		elif collision_dir == Constants.Direction.LEFT or collision_dir == Constants.Direction.RIGHT:
 			if (collider[0].x == collider[1].x
@@ -307,7 +307,7 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		unit.pos.x = unit.pos.x + x_dist_to_translate
 		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, true)
 		interact_grounded(unit, delta)
-		if (unit.unit_conditions[Constants.UnitCondition.CURRENT_ACTION]) == Constants.UnitCurrentAction.JUMPING:
+		if (unit.get_current_action()) == Constants.UnitCurrentAction.JUMPING:
 			unit.set_current_action(Constants.UnitCurrentAction.IDLE)
 
 # returns true/false, collision direction, collision point, and unit env collider

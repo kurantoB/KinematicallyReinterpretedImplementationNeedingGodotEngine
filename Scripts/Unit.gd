@@ -56,9 +56,12 @@ func process_unit(delta):
 	current_action_time_elapsed += delta
 	execute_actions(delta)
 
+func get_current_action():
+	return unit_conditions[Constants.UnitCondition.CURRENT_ACTION]
+
 func set_current_action(current_action : int):
 	assert(current_action in Constants.UNIT_TYPE_CURRENT_ACTIONS[unit_type])
-	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] != current_action:
+	if get_current_action() != current_action:
 		current_action_time_elapsed = 0
 	set_unit_condition(Constants.UnitCondition.CURRENT_ACTION, current_action)
 
@@ -76,7 +79,7 @@ func execute_actions(delta):
 
 func jump():
 	v_speed = Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type]
-	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.JUMPING and v_speed > 0:
+	if get_current_action() == Constants.UnitCurrentAction.JUMPING and v_speed > 0:
 		set_sprite("Jump", 0)
 	if is_current_action_timer_done(Constants.UnitCurrentAction.JUMPING):
 		set_current_action(Constants.UnitCurrentAction.IDLE)
@@ -84,7 +87,7 @@ func jump():
 
 func move():
 	if (unit_conditions[Constants.UnitCondition.MOVING_STATUS] != Constants.UnitMovingStatus.IDLE
-	and unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE
+	and get_current_action() == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		set_sprite("Walk")
 
@@ -149,7 +152,7 @@ func handle_moving_status(delta):
 			h_speed = 0
 
 func handle_idle():
-	if unit_conditions[Constants.UnitCondition.CURRENT_ACTION] == Constants.UnitCurrentAction.IDLE:
+	if get_current_action() == Constants.UnitCurrentAction.IDLE:
 		if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 			if unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
 				set_sprite("Idle")

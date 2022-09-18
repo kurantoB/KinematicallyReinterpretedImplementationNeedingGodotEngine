@@ -82,19 +82,16 @@ func handle_player_input():
 		if (player.get_current_action() == Constants.UnitCurrentAction.IDLE
 		or player.get_current_action() == Constants.UnitCurrentAction.JUMPING):
 			# set move
-			player.handle_input_move()
+			player.set_action(Constants.ActionType.MOVE)
 		# set facing
 		player.facing = input_dir
 	
 	if input_table[Constants.PlayerInput.GBA_A][I_T_PRESSED]:
-		if player.get_current_action() == Constants.UnitCurrentAction.JUMPING:
-			player.set_action(Constants.ActionType.JUMP)
-		elif (player.get_current_action() == Constants.UnitCurrentAction.IDLE
+		if (player.get_current_action() == Constants.UnitCurrentAction.JUMPING
+		or (player.get_current_action() == Constants.UnitCurrentAction.IDLE
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
-		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED]):
+		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED])):
 			player.set_action(Constants.ActionType.JUMP)
-			player.set_current_action(Constants.UnitCurrentAction.JUMPING)
-			player.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 	
 	# process CURRENT_ACTION
 	

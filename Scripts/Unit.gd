@@ -48,10 +48,6 @@ func reset_actions():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
 
-func handle_input_move():
-	set_action(Constants.ActionType.MOVE)
-	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.MOVING)
-
 func process_unit(delta):
 	current_action_time_elapsed += delta
 	execute_actions(delta)
@@ -78,6 +74,8 @@ func execute_actions(delta):
 	handle_idle()
 
 func jump():
+	set_current_action(Constants.UnitCurrentAction.JUMPING)
+	set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 	v_speed = Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type]
 	if get_current_action() == Constants.UnitCurrentAction.JUMPING and v_speed > 0:
 		set_sprite("Jump", 0)
@@ -86,8 +84,8 @@ func jump():
 		
 
 func move():
-	if (unit_conditions[Constants.UnitCondition.MOVING_STATUS] != Constants.UnitMovingStatus.IDLE
-	and get_current_action() == Constants.UnitCurrentAction.IDLE
+	set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.MOVING)
+	if (get_current_action() == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		set_sprite("Walk")
 

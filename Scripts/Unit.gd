@@ -21,6 +21,7 @@ var pos : Vector2
 var h_speed : float = 0
 var v_speed : float = 0
 var target_move_speed : float
+var last_contacted_ground_collider : Array
 
 var current_sprite : Node2D
 

@@ -30,7 +30,7 @@ func _ready():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
 	for condition_num in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
-		unit_conditions[condition_num] = Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num]
+		set_unit_condition(condition_num, Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num])
 	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 
 func set_action(action : int):

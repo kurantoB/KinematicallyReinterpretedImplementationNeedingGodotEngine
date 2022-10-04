@@ -52,6 +52,7 @@ func reset_actions():
 func process_unit(delta):
 	current_action_time_elapsed += delta
 	execute_actions(delta)
+	handle_moving_status(delta)
 
 func get_current_action():
 	return unit_conditions[Constants.UnitCondition.CURRENT_ACTION]
@@ -71,7 +72,6 @@ func execute_actions(delta):
 				jump()
 			Constants.ActionType.MOVE:
 				move()
-	handle_moving_status(delta)
 	handle_idle()
 
 func jump():

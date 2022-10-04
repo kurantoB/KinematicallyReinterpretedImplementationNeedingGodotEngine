@@ -83,8 +83,8 @@ func handle_player_input():
 		or player.get_current_action() == Constants.UnitCurrentAction.JUMPING):
 			# set move
 			player.set_action(Constants.ActionType.MOVE)
-		# set facing
-		player.facing = input_dir
+			# set facing
+			player.facing = input_dir
 	
 	if input_table[Constants.PlayerInput.GBA_A][I_T_PRESSED]:
 		if (player.get_current_action() == Constants.UnitCurrentAction.JUMPING

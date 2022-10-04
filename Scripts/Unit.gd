@@ -155,9 +155,10 @@ func handle_idle():
 		if unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
 			if unit_conditions[Constants.UnitCondition.MOVING_STATUS] == Constants.UnitMovingStatus.IDLE:
 				set_sprite("Idle")
+		elif v_speed > 0:
+			set_sprite("Jump", 0)
 		else:
-			if v_speed < 0:
-				set_sprite("Jump", 1)
+			set_sprite("Jump", 1)
 
 func set_sprite(sprite_class : String, index : int = 0):
 	if not unit_type in Constants.UNIT_SPRITES or not sprite_class in Constants.UNIT_SPRITES[unit_type]:

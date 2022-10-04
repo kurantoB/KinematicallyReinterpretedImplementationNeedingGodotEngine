@@ -4,6 +4,7 @@ extends Unit
 class_name Player
 
 func execute_actions(delta):
+	.execute_actions(delta)
 	for action_num in Constants.UNIT_TYPE_ACTIONS[Constants.UnitType.PLAYER]:
 		if !actions[action_num]:
 			continue
@@ -11,4 +12,3 @@ func execute_actions(delta):
 			# handle custom actions
 			_:
 				pass
-	.execute_actions(delta)

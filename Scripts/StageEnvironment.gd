@@ -305,14 +305,19 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		return
 	if (not unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and (collider[0].y == collider[1].y or (collider[0].x != collider[1].x and collider[0].y != collider[1].y))):
+		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, true)
 		if unit.get_current_action() == Constants.UnitCurrentAction.JUMPING:
-			# don't lose any of the 2 components of velocity
-			var magnitude = sqrt(pow(unit.v_speed, 2) + pow(unit.h_speed, 2))
-			unit.v_speed = -magnitude
-			if unit.facing == Constants.Direction.RIGHT:
-				unit.h_speed = Constants.QUANTUM_DIST
+			if unit.h_speed == 0:
+				# hit wall
+				unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 			else:
-				unit.h_speed = -Constants.QUANTUM_DIST
+				# don't lose any of the 2 components of velocity
+				var magnitude = sqrt(pow(unit.v_speed, 2) + pow(unit.h_speed, 2))
+				unit.v_speed = -magnitude
+				if unit.facing == Constants.Direction.RIGHT:
+					unit.h_speed = Constants.QUANTUM_DIST
+				else:
+					unit.h_speed = -Constants.QUANTUM_DIST
 		else:
 			# only keep the horizontal component of velocity
 			unit.v_speed = -1 * abs(unit.h_speed)
@@ -325,8 +330,8 @@ func check_ground_collision(unit : Unit, collider, collision_point : Vector2, un
 		unit.pos.y = unit.pos.y + y_dist_to_translate
 		var x_dist_to_translate = collision_point.x - (unit.pos.x + unit_env_collider[0].x)
 		unit.pos.x = unit.pos.x + x_dist_to_translate
-		unit.set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, true)
-		interact_grounded(unit, delta)
+		if unit.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]:
+			interact_grounded(unit, delta)
 
 # returns true/false, collision direction, collision point, and unit env collider
 func unit_is_colliding_w_env(unit : Unit, collider, direction, delta, grounded_check = false):

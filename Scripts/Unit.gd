@@ -99,7 +99,7 @@ func jump():
 		v_speed = max(Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], v_speed)
 	else:
 		# airborne
-		v_speed = move_toward(v_speed, Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], get_process_delta_time() * Constants.GRAVITY)
+		v_speed = max(Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], move_toward(v_speed, Constants.UNIT_TYPE_JUMP_SPEEDS[unit_type], get_process_delta_time() * Constants.GRAVITY))
 	set_unit_condition(Constants.UnitCondition.IS_ON_GROUND, false)
 	if get_current_action() == Constants.UnitCurrentAction.JUMPING and v_speed > 0:
 		set_sprite("Jump", 0)

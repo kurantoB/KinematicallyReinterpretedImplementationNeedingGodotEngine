@@ -12,3 +12,9 @@ func execute_actions(delta):
 			# handle custom actions
 			_:
 				pass
+
+func handle_input(delta):
+	scene.handle_player_input()
+
+func reset_current_action():
+	scene.reset_player_current_action()

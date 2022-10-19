@@ -9,6 +9,8 @@ class_name Unit
 const Constants = preload("res://Scripts/Constants.gd")
 const GameUtils = preload("res://Scripts/GameUtils.gd")
 
+var scene
+
 # position
 export var unit_type : int
 
@@ -33,6 +35,9 @@ func _ready():
 		set_unit_condition(condition_num, Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num])
 	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 
+func init_unit_w_scene(scene):
+	self.scene = scene
+
 func set_action(action : int):
 	assert(action in Constants.UNIT_TYPE_ACTIONS[unit_type])
 	actions[action] = true
@@ -54,6 +59,19 @@ func process_unit(delta):
 	execute_actions(delta)
 	handle_idle()
 	handle_moving_status(delta)
+
+func reset_current_action():
+	# process CURRENT_ACTION
+	if get_current_action() == scene.Constants.UnitCurrentAction.JUMPING:
+		if not actions[scene.Constants.ActionType.JUMP]:
+			set_current_action(scene.Constants.UnitCurrentAction.IDLE)
+	# process MOVING_STATUS
+	if not actions[scene.Constants.ActionType.MOVE]:
+		set_unit_condition(scene.Constants.UnitCondition.MOVING_STATUS, scene.Constants.UnitMovingStatus.IDLE)
+
+func handle_input(delta):
+	# implemented in subclass
+	pass
 
 func get_current_action():
 	return unit_conditions[Constants.UnitCondition.CURRENT_ACTION]

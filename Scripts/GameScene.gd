@@ -14,6 +14,7 @@ const Unit = preload("res://Scripts/Unit.gd")
 
 var units = []
 var player : Player
+var player_cam : Camera2D
 
 # [pressed?, just pressed?, just released?]
 var input_table = {
@@ -35,6 +36,10 @@ var stage_env
 func _ready():
 	units.append(get_node("Player"))
 	player = units[0]
+	player.init_unit_w_scene(self)
+	player_cam = player.get_node("Camera2D")
+	player_cam.make_current()
+	
 	stage_env = load("res://Scripts/StageEnvironment.gd").new(self)
 	player.get_node("Camera2D").make_current()
 
@@ -42,13 +47,17 @@ func _ready():
 func _process(delta):
 	for unit in units:
 		unit.reset_actions()
-	handle_player_input()
-	# handle other units' input
-	for unit in units:
+		unit.handle_input(delta)
+		unit.reset_current_action()
 		unit.process_unit(delta)
 		stage_env.interact(unit, delta)
 		unit.react(delta)
 		stage_env.interact_post(unit)
+	# visual effects
+	if (player.facing == Constants.Direction.RIGHT):
+		player_cam.offset_h = 1
+	else:
+		player_cam.offset_h = -1
 
 func handle_player_input():
 	for input_num in input_table.keys():
@@ -92,14 +101,12 @@ func handle_player_input():
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED])):
 			player.set_action(Constants.ActionType.JUMP)
-	
+
+func reset_player_current_action():
 	# process CURRENT_ACTION
-	
 	if player.get_current_action() == Constants.UnitCurrentAction.JUMPING:
 		if input_table[Constants.PlayerInput.GBA_A][I_T_JUST_RELEASED]:
 			player.set_current_action(Constants.UnitCurrentAction.IDLE)
-	
 	# process MOVING_STATUS
-	
 	if not player.actions[Constants.ActionType.MOVE]:
 		player.set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)

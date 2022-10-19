@@ -21,3 +21,5 @@ script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2( 0, -15 )
+smoothing_enabled = true
+smoothing_speed = 6.0

@@ -19,15 +19,12 @@ func _init(the_scene : GameScene):
 	init_stage_grid(stage)
 	stage.scale.x = Constants.SCALE_FACTOR
 	stage.scale.y = Constants.SCALE_FACTOR
-	var player = scene.get_node("Player")
-	init_player(player)
-	player.position.x = player.position.x * Constants.SCALE_FACTOR
-	player.position.y = player.position.y * Constants.SCALE_FACTOR
-	player.scale.x = Constants.SCALE_FACTOR
-	player.scale.y = Constants.SCALE_FACTOR
-
-func init_player(player : Unit):
-	player.pos = Vector2(player.position.x / Constants.GRID_SIZE, -1 * player.position.y / Constants.GRID_SIZE)
+	for unit in scene.units:
+		unit.pos = Vector2(unit.position.x / scene.Constants.GRID_SIZE, -1 * unit.position.y / scene.Constants.GRID_SIZE)
+		unit.position.x = unit.position.x * scene.Constants.SCALE_FACTOR
+		unit.position.y = unit.position.y * scene.Constants.SCALE_FACTOR
+		unit.scale.x = Constants.SCALE_FACTOR
+		unit.scale.y = Constants.SCALE_FACTOR
 
 func interact(unit : Unit, delta):
 	# grounded

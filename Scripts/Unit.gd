@@ -46,6 +46,12 @@ func set_unit_condition(condition_type : int, condition):
 	assert(condition_type in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys())
 	unit_conditions[condition_type] = condition
 
+func get_condition(condition_num : int, default):
+	if condition_num in scene.Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
+		return unit_conditions[condition_num]
+	else:
+		return default
+
 func is_current_action_timer_done(current_action : int):
 	assert(current_action in Constants.CURRENT_ACTION_TIMERS[unit_type].keys())
 	return current_action_time_elapsed >= Constants.CURRENT_ACTION_TIMERS[unit_type][current_action]
@@ -197,6 +203,7 @@ func set_sprite(sprite_class : String, index : int = 0):
 		current_sprite = new_sprite
 		current_sprite.visible = true
 		if (Constants.UNIT_SPRITES[unit_type][sprite_class][0]):
+			current_sprite.set_frame(0)
 			current_sprite.play()
 	if facing == Constants.Direction.LEFT:
 		current_sprite.scale.x = -1

@@ -129,7 +129,7 @@ const UNIT_SPRITES = {
 }
 
 const UNIT_TYPE_MOVE_SPEEDS = {
-	UnitType.PLAYER: 9
+	UnitType.PLAYER: 6
 }
 
 const UNIT_TYPE_JUMP_SPEEDS = {

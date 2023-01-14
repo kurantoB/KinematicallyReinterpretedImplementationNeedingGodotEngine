@@ -15,6 +15,3 @@ func execute_actions(delta):
 
 func handle_input(delta):
 	scene.handle_player_input()
-
-func reset_current_action():
-	scene.reset_player_current_action()

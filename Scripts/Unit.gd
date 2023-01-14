@@ -65,6 +65,7 @@ func process_unit(delta):
 	execute_actions(delta)
 	handle_idle()
 	handle_moving_status(delta)
+	reset_current_action()
 
 func reset_current_action():
 	# process CURRENT_ACTION
@@ -156,6 +157,7 @@ func handle_moving_status(delta):
 			elif h_speed < 0:
 				h_speed = -1 * Constants.QUANTUM_DIST
 			else:
+				# from still to moving
 				if facing == Constants.Direction.RIGHT:
 					h_speed = Constants.QUANTUM_DIST
 				else:
@@ -172,6 +174,7 @@ func handle_moving_status(delta):
 			elif h_speed < 0:
 				h_speed = -1 * magnitude
 			else:
+				# from no lateral movement to having lateral movement
 				if facing == Constants.Direction.RIGHT:
 					h_speed = magnitude
 				else:

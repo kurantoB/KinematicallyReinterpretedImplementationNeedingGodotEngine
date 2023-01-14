@@ -48,11 +48,9 @@ func _process(delta):
 	for unit in units:
 		unit.reset_actions()
 		unit.handle_input(delta)
-		unit.reset_current_action()
 		unit.process_unit(delta)
 		stage_env.interact(unit, delta)
 		unit.react(delta)
-		stage_env.interact_post(unit)
 	# visual effects
 	if (player.facing == Constants.Direction.RIGHT):
 		player_cam.offset_h = 1
@@ -101,12 +99,3 @@ func handle_player_input():
 		and player.unit_conditions[Constants.UnitCondition.IS_ON_GROUND]
 		and input_table[Constants.PlayerInput.GBA_A][I_T_JUST_PRESSED])):
 			player.set_action(Constants.ActionType.JUMP)
-
-func reset_player_current_action():
-	# process CURRENT_ACTION
-	if player.get_current_action() == Constants.UnitCurrentAction.JUMPING:
-		if input_table[Constants.PlayerInput.GBA_A][I_T_JUST_RELEASED]:
-			player.set_current_action(Constants.UnitCurrentAction.IDLE)
-	# process MOVING_STATUS
-	if not player.actions[Constants.ActionType.MOVE]:
-		player.set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)

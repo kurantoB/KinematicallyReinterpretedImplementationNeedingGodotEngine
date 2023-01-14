@@ -86,7 +86,11 @@ const CURRENT_ACTION_TIMERS = {
 const ENV_COLLIDERS = {
 	UnitType.PLAYER: [
 		[Vector2(0, 1.5), [Direction.LEFT, Direction.UP, Direction.RIGHT]],
-		[Vector2(0, .75), [Direction.LEFT, Direction.RIGHT]],
+		[Vector2(-.25, .25), [Direction.LEFT]],
+		[Vector2(.25, .25), [Direction.RIGHT]],
+		[Vector2(-.25, 1.25), [Direction.LEFT]],
+		[Vector2(.25, 1.25), [Direction.RIGHT]],
+		# contact with ground is at (0, 0)
 		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
 	],
 }
@@ -125,7 +129,7 @@ const UNIT_SPRITES = {
 }
 
 const UNIT_TYPE_MOVE_SPEEDS = {
-	UnitType.PLAYER: 6
+	UnitType.PLAYER: 9
 }
 
 const UNIT_TYPE_JUMP_SPEEDS = {

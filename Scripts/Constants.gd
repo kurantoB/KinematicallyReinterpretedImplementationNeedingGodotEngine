@@ -136,7 +136,7 @@ const UNIT_TYPE_JUMP_SPEEDS = {
 	UnitType.PLAYER: 5
 }
 
-const SCALE_FACTOR = 3
+const SCALE_FACTOR = 3.5
 const GRID_SIZE = 20 # pixels
 const GRAVITY = 30
 const MAX_FALL_SPEED = -12

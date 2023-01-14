@@ -38,8 +38,8 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=720
-window/size/height=480
+window/size/width=840
+window/size/height=560
 
 [input]
 

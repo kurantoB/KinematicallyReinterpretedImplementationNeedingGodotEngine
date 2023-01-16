@@ -131,7 +131,6 @@ func init_stage_grid(tilemap : TileMap):
 			Constants.MapElemType.LEDGE:
 				insert_grid_collider(stage_x, stage_y, Constants.Direction.DOWN, 1)
 
-
 func insert_grid_collider(stage_x, stage_y, direction : int, fractional_height : float):
 	var check_colliders = []
 	var insert_colliders = []

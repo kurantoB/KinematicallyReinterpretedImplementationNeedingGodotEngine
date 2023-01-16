@@ -12,6 +12,8 @@ export var tile_set_name: String
 const Constants = preload("res://Scripts/Constants.gd")
 const Unit = preload("res://Scripts/Unit.gd")
 
+var paused : bool = false
+
 var units = []
 var player : Player
 var player_cam : Camera2D
@@ -45,17 +47,25 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for unit in units:
-		unit.reset_actions()
-		unit.handle_input(delta)
-		unit.process_unit(delta)
-		stage_env.interact(unit, delta)
-		unit.react(delta)
 	# visual effects
 	if (player.facing == Constants.Direction.RIGHT):
 		player_cam.offset_h = 1
 	else:
 		player_cam.offset_h = -1
+	
+	read_paused()
+	if not paused:
+		# game logic
+		for unit in units:
+			unit.reset_actions()
+			unit.handle_input(delta)
+			unit.process_unit(delta)
+			stage_env.interact(unit, delta)
+			unit.react(delta)
+
+func read_paused():
+	if Input.is_action_just_pressed(Constants.INPUT_MAP[Constants.PlayerInput.GBA_START]):
+		paused = !paused
 
 func handle_player_input():
 	for input_num in input_table.keys():

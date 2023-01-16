@@ -22,9 +22,9 @@ func _init(the_scene : GameScene):
 	stage.scale.x = Constants.SCALE_FACTOR
 	stage.scale.y = Constants.SCALE_FACTOR
 	for unit in scene.units:
-		unit.pos = Vector2(unit.position.x / scene.Constants.GRID_SIZE, -1 * unit.position.y / scene.Constants.GRID_SIZE)
-		unit.position.x = unit.position.x * scene.Constants.SCALE_FACTOR
-		unit.position.y = unit.position.y * scene.Constants.SCALE_FACTOR
+		unit.pos = Vector2(unit.position.x / Constants.GRID_SIZE, -1 * unit.position.y / Constants.GRID_SIZE)
+		unit.position.x = unit.position.x * Constants.SCALE_FACTOR
+		unit.position.y = unit.position.y * Constants.SCALE_FACTOR
 		unit.scale.x = Constants.SCALE_FACTOR
 		unit.scale.y = Constants.SCALE_FACTOR
 	# populate unit_collision_bounds

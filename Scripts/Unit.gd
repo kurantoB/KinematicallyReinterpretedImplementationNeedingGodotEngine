@@ -54,7 +54,7 @@ func set_unit_condition(condition_type : int, condition):
 	unit_conditions[condition_type] = condition
 
 func get_condition(condition_num : int, default):
-	if condition_num in scene.Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
+	if condition_num in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
 		return unit_conditions[condition_num]
 	else:
 		return default
@@ -76,12 +76,12 @@ func process_unit(delta):
 
 func reset_current_action():
 	# process CURRENT_ACTION
-	if get_current_action() == scene.Constants.UnitCurrentAction.JUMPING:
-		if not actions[scene.Constants.ActionType.JUMP]:
-			set_current_action(scene.Constants.UnitCurrentAction.IDLE)
+	if get_current_action() == Constants.UnitCurrentAction.JUMPING:
+		if not actions[Constants.ActionType.JUMP]:
+			set_current_action(Constants.UnitCurrentAction.IDLE)
 	# process MOVING_STATUS
-	if not actions[scene.Constants.ActionType.MOVE]:
-		set_unit_condition(scene.Constants.UnitCondition.MOVING_STATUS, scene.Constants.UnitMovingStatus.IDLE)
+	if not actions[Constants.ActionType.MOVE]:
+		set_unit_condition(Constants.UnitCondition.MOVING_STATUS, Constants.UnitMovingStatus.IDLE)
 
 func handle_input(delta):
 	# implemented in subclass

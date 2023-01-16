@@ -52,6 +52,12 @@ enum MapElemType {
 	LEDGE,
 }
 
+enum SpriteClass {
+	IDLE,
+	WALK,
+	JUMP,
+}
+
 const UNIT_TYPE_ACTIONS = {
 	UnitType.PLAYER: [
 		ActionType.JUMP,
@@ -122,9 +128,9 @@ const TILE_SET_MAP_ELEMS = {
 const UNIT_SPRITES = {
 	# "Sprite class": [is animation?, [Node list]]
 	UnitType.PLAYER: {
-		"Idle": [false, ["Idle"]],
-		"Walk": [true, ["Walk"]],
-		"Jump": [false, ["Jump1", "Jump2"]],
+		SpriteClass.IDLE: [false, ["Idle"]],
+		SpriteClass.WALK: [true, ["Walk"]],
+		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
 	}
 }
 

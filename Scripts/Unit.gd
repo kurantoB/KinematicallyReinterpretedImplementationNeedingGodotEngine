@@ -26,7 +26,7 @@ var target_move_speed : float
 var last_contacted_ground_collider : Array
 
 var current_sprite : Node2D
-var sprite_class_nodes = {}
+var sprite_class_nodes = {} # sprite class to node list dictionary
 
 # Called when the node enters the scene tree for the first time
 func _ready():
@@ -202,7 +202,6 @@ func handle_idle():
 func set_sprite(sprite_class : int, index : int = 0):
 	assert(unit_type in Constants.UNIT_SPRITES)
 	assert(sprite_class in Constants.UNIT_SPRITES[unit_type])
-	# var node_list = Constants.UNIT_SPRITES[unit_type][sprite_class][1]
 	var node_list = sprite_class_nodes[sprite_class]
 	var true_index : int = index
 	if true_index > len(node_list) - 1:

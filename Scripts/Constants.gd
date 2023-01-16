@@ -126,7 +126,7 @@ const TILE_SET_MAP_ELEMS = {
 }
 
 const UNIT_SPRITES = {
-	# "Sprite class": [is animation?, [Node list]]
+	# Sprite-class: [Is-animation?, Nodes]
 	UnitType.PLAYER: {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],

@@ -7,6 +7,7 @@
 [ext_resource path="res://Graphics/Units/NPCJump1.png" type="Texture" id=5]
 
 [node name="NPC" type="Node2D"]
+z_index = -1
 script = ExtResource( 1 )
 unit_type = 1
 

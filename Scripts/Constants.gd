@@ -85,7 +85,7 @@ const UNIT_TYPE_CONDITIONS = {
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
 		UnitCurrentAction.JUMPING: 0.4,
-	}
+	},
 }
 
 # Position relative to player's origin, list of directions to check for collision
@@ -122,7 +122,7 @@ const TILE_SET_MAP_ELEMS = {
 		MapElemType.SMALL_SLOPE_RIGHT_1: [12],
 		MapElemType.SMALL_SLOPE_RIGHT_2: [13, 14],
 		MapElemType.LEDGE: [19, 20, 21, 22],
-	}
+	},
 }
 
 const UNIT_SPRITES = {
@@ -131,15 +131,15 @@ const UNIT_SPRITES = {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
-	}
+	},
 }
 
 const UNIT_TYPE_MOVE_SPEEDS = {
-	UnitType.PLAYER: 6
+	UnitType.PLAYER: 6,
 }
 
 const UNIT_TYPE_JUMP_SPEEDS = {
-	UnitType.PLAYER: 5
+	UnitType.PLAYER: 5,
 }
 
 const SCALE_FACTOR = 3.5

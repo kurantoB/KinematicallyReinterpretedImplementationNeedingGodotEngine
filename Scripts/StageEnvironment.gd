@@ -203,7 +203,6 @@ func reangle_grounded_move(unit : Unit):
 		# returns [collision?, x, y]
 		var intersects_results =  GameUtils.path_intersects_border(
 			Vector2(unit.pos.x, unit.pos.y),
-			# Vector2(unit.pos.x, unit.pos.y - (Constants.QUANTUM_DIST * 2)),
 			Vector2(unit.pos.x, unit.pos.y - .5),
 			collider[0],
 			collider[1])

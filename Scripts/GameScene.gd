@@ -41,6 +41,8 @@ const I_T_JUST_RELEASED : int = 2
 
 var stage_env
 
+var rng = RandomNumberGenerator.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	units.append(get_node("Player"))

@@ -1,15 +1,21 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/Units/NPCUnit.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Units/NPCExample.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Units/NPC.png" type="Texture" id=2]
 [ext_resource path="res://Graphics/Animations/NPCWalk.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://Graphics/Units/NPCJump2.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Units/NPCJump1.png" type="Texture" id=5]
 
 [node name="NPC" type="Node2D"]
-z_index = -1
 script = ExtResource( 1 )
 unit_type = 1
+tick_duration = 2.0
+action_sequence_map = {
+[ [ "MOVE" ], [ 0.0 ] ]: 1
+}
+action_duration_map = {
+"MOVE": 1.0
+}
 
 [node name="Idle" type="Sprite" parent="."]
 visible = false

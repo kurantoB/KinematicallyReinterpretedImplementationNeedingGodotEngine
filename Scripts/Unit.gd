@@ -41,6 +41,9 @@ func _ready():
 		sprite_class_nodes[sprite_class] = []
 		for node_name in Constants.UNIT_SPRITES[unit_type][sprite_class][1]:
 			sprite_class_nodes[sprite_class].append(get_node(node_name))
+	
+	scale.x = Constants.SCALE_FACTOR
+	scale.y = Constants.SCALE_FACTOR
 
 func init_unit_w_scene(scene):
 	self.scene = scene

@@ -21,12 +21,6 @@ func _init(the_scene : GameScene):
 	init_stage_grid(stage)
 	stage.scale.x = Constants.SCALE_FACTOR
 	stage.scale.y = Constants.SCALE_FACTOR
-	for unit in scene.units:
-		unit.pos = Vector2(unit.position.x / Constants.GRID_SIZE, -1 * unit.position.y / Constants.GRID_SIZE)
-		unit.position.x = unit.position.x * Constants.SCALE_FACTOR
-		unit.position.y = unit.position.y * Constants.SCALE_FACTOR
-		unit.scale.x = Constants.SCALE_FACTOR
-		unit.scale.y = Constants.SCALE_FACTOR
 	# populate unit_collision_bounds
 	for unit_type in Constants.ENV_COLLIDERS.keys():
 		var initial_detect_pt = Constants.ENV_COLLIDERS[unit_type][0]

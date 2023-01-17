@@ -7,6 +7,9 @@
 [node name="Scene" type="Node"]
 script = ExtResource( 5 )
 tile_set_name = "TestTileSet"
+spawning = {
+Vector2( 12, 3 ): "NPC"
+}
 
 [node name="Stage" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

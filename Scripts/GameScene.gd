@@ -11,6 +11,13 @@ class_name GameScene
 export var tile_set_name: String
 const Constants = preload("res://Scripts/Constants.gd")
 const Unit = preload("res://Scripts/Unit.gd")
+const UNIT_DIRECTORY = {
+	Constants.UnitType.NPC: preload("res://Units/NPC.tscn"),
+}
+
+# positions to unit string
+export var spawning : Dictionary
+var spawning_map = {} # keeps track of what's alive
 
 var paused : bool = false
 
@@ -44,6 +51,8 @@ func _ready():
 	
 	stage_env = load("res://Scripts/StageEnvironment.gd").new(self)
 	player.get_node("Camera2D").make_current()
+	for spawning_key in spawning:
+		spawning_map[spawning_key] = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -56,6 +65,7 @@ func _process(delta):
 	read_paused()
 	if not paused:
 		# game logic
+		process_spawning()
 		for unit in units:
 			unit.reset_actions()
 			unit.handle_input(delta)
@@ -66,6 +76,27 @@ func _process(delta):
 func read_paused():
 	if Input.is_action_just_pressed(Constants.INPUT_MAP[Constants.PlayerInput.GBA_START]):
 		paused = !paused
+
+func process_spawning():
+	for one_spawn in spawning.keys():
+		if spawning_map[one_spawn] != null:
+			continue
+		if abs(one_spawn[0] - player.pos.x) >= Constants.SPAWN_DISTANCE + 1 or abs(one_spawn[1] - player.pos.y) >= Constants.SPAWN_DISTANCE + 1:
+			continue
+		if abs(one_spawn[0] - player.pos.x) <= Constants.SPAWN_DISTANCE:
+			continue
+		# NPCUnit
+		var npc_scene = UNIT_DIRECTORY[Constants.UnitType.get(spawning[one_spawn])]
+		var npc_instance = npc_scene.instance()
+		add_child(npc_instance)
+		units.append(npc_instance)
+		npc_instance.spawn_point = one_spawn
+		spawning_map[one_spawn] = npc_instance
+		npc_instance.pos.x = one_spawn[0]
+		npc_instance.pos.y = one_spawn[1]
+		npc_instance.position.x = npc_instance.pos.x * Constants.GRID_SIZE
+		npc_instance.position.y = -1 * npc_instance.pos.y * Constants.GRID_SIZE
+		npc_instance.init_unit_w_scene(self)
 
 func handle_player_input():
 	for input_num in input_table.keys():

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Units/NPCUnit.gd" type="Script" id=1]
+[ext_resource path="res://Graphics/Units/NPC.png" type="Texture" id=2]
+[ext_resource path="res://Graphics/Animations/NPCWalk.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://Graphics/Units/NPCJump2.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/Units/NPCJump1.png" type="Texture" id=5]
+
+[node name="NPC" type="Node2D"]
+script = ExtResource( 1 )
+unit_type = 1
+
+[node name="Idle" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 2 )
+offset = Vector2( 0, -15 )
+
+[node name="Jump1" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 5 )
+offset = Vector2( 0, -15 )
+
+[node name="Jump2" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+offset = Vector2( 0, -15 )
+
+[node name="Walk" type="AnimatedSprite" parent="."]
+visible = false
+frames = ExtResource( 3 )
+offset = Vector2( 0, -15 )

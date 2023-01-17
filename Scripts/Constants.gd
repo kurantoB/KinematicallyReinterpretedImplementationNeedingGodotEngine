@@ -155,7 +155,7 @@ const UNIT_SPRITES = {
 	UnitType.NPC: {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
-		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
+		SpriteClass.JUMP: [false, ["Jump2"]],
 	},
 }
 
@@ -174,3 +174,4 @@ const GRAVITY = 30
 const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
 const QUANTUM_DIST = 0.001
+const SPAWN_DISTANCE = 10

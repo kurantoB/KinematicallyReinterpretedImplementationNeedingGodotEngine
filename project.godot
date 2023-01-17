@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/GameScene.gd"
 }, {
 "base": "Unit",
+"class": "NPCUnit",
+"language": "GDScript",
+"path": "res://Scripts/Units/NPCUnit.gd"
+}, {
+"base": "Unit",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scripts/Units/Player.gd"
@@ -26,6 +31,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GameScene": "",
+"NPCUnit": "",
 "Player": "",
 "Unit": ""
 }

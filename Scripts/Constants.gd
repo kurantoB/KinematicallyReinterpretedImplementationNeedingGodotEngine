@@ -1,5 +1,6 @@
 enum UnitType {
 	PLAYER,
+	NPC,
 }
 
 enum ActionType {
@@ -63,6 +64,9 @@ const UNIT_TYPE_ACTIONS = {
 		ActionType.JUMP,
 		ActionType.MOVE,
 	],
+	UnitType.NPC: [
+		ActionType.MOVE,
+	],
 }
 
 const UNIT_TYPE_CURRENT_ACTIONS = {
@@ -70,11 +74,19 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 		UnitCurrentAction.IDLE,
 		UnitCurrentAction.JUMPING,
 	],
+	UnitType.NPC: [
+		UnitCurrentAction.IDLE,
+	],
 }
 
 # default conditions
 const UNIT_TYPE_CONDITIONS = {
 	UnitType.PLAYER: {
+		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
+		UnitCondition.IS_ON_GROUND: false,
+		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
+	},
+	UnitType.NPC: {
 		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
 		UnitCondition.IS_ON_GROUND: false,
 		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
@@ -97,6 +109,14 @@ const ENV_COLLIDERS = {
 		[Vector2(-.25, 1.25), [Direction.LEFT]],
 		[Vector2(.25, 1.25), [Direction.RIGHT]],
 		# contact with ground is at (0, 0)
+		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
+	],
+	UnitType.NPC: [
+		[Vector2(0, 1.5), [Direction.LEFT, Direction.UP, Direction.RIGHT]],
+		[Vector2(-.25, .25), [Direction.LEFT]],
+		[Vector2(.25, .25), [Direction.RIGHT]],
+		[Vector2(-.25, 1.25), [Direction.LEFT]],
+		[Vector2(.25, 1.25), [Direction.RIGHT]],
 		[Vector2(0, 0), [Direction.LEFT, Direction.DOWN, Direction.RIGHT]],
 	],
 }
@@ -131,11 +151,17 @@ const UNIT_SPRITES = {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
-	}
+	},
+	UnitType.NPC: {
+		SpriteClass.IDLE: [false, ["Idle"]],
+		SpriteClass.WALK: [true, ["Walk"]],
+		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
+	},
 }
 
 const UNIT_TYPE_MOVE_SPEEDS = {
-	UnitType.PLAYER: 6
+	UnitType.PLAYER: 6,
+	UnitType.NPC: 3,
 }
 
 const UNIT_TYPE_JUMP_SPEEDS = {

@@ -41,6 +41,8 @@ const I_T_JUST_RELEASED : int = 2
 
 var stage_env
 
+var time_elapsed : float = 0
+
 var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -71,9 +73,10 @@ func _process(delta):
 		for unit in units:
 			unit.reset_actions()
 			unit.handle_input(delta)
-			unit.process_unit(delta)
+			unit.process_unit(delta, time_elapsed)
 			stage_env.interact(unit, delta)
 			unit.react(delta)
+		time_elapsed += delta
 
 func read_paused():
 	if Input.is_action_just_pressed(Constants.INPUT_MAP[Constants.PlayerInput.GBA_START]):
@@ -101,6 +104,12 @@ func process_spawning():
 		npc_instance.init_unit_w_scene(self)
 
 func handle_player_input():
+	# early exit
+	
+	if player.get_current_action() == Constants.UnitCurrentAction.RECOILING:
+		player.set_action(Constants.ActionType.RECOIL)
+		return
+	
 	for input_num in input_table.keys():
 		if Input.is_action_pressed(Constants.INPUT_MAP[input_num]):
 			input_table[input_num][I_T_PRESSED] = true

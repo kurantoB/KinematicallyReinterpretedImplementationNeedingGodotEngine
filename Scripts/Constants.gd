@@ -6,17 +6,20 @@ enum UnitType {
 enum ActionType {
 	JUMP,
 	MOVE,
+	RECOIL,
 }
 
 enum UnitCondition {
 	CURRENT_ACTION,
 	IS_ON_GROUND,
 	MOVING_STATUS,
+	IS_INVINCIBLE,
 }
 
 enum UnitCurrentAction {
 	IDLE,
 	JUMPING,
+	RECOILING,
 }
 
 enum UnitMovingStatus {
@@ -57,12 +60,14 @@ enum SpriteClass {
 	IDLE,
 	WALK,
 	JUMP,
+	RECOIL,
 }
 
 const UNIT_TYPE_ACTIONS = {
 	UnitType.PLAYER: [
 		ActionType.JUMP,
 		ActionType.MOVE,
+		ActionType.RECOIL,
 	],
 	UnitType.NPC: [
 		ActionType.MOVE,
@@ -73,6 +78,7 @@ const UNIT_TYPE_CURRENT_ACTIONS = {
 	UnitType.PLAYER: [
 		UnitCurrentAction.IDLE,
 		UnitCurrentAction.JUMPING,
+		UnitCurrentAction.RECOILING,
 	],
 	UnitType.NPC: [
 		UnitCurrentAction.IDLE,
@@ -85,6 +91,7 @@ const UNIT_TYPE_CONDITIONS = {
 		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
 		UnitCondition.IS_ON_GROUND: false,
 		UnitCondition.MOVING_STATUS: UnitMovingStatus.IDLE,
+		UnitCondition.IS_INVINCIBLE: false,
 	},
 	UnitType.NPC: {
 		UnitCondition.CURRENT_ACTION: UnitCurrentAction.IDLE,
@@ -97,7 +104,16 @@ const UNIT_TYPE_CONDITIONS = {
 const CURRENT_ACTION_TIMERS = {
 	UnitType.PLAYER: {
 		UnitCurrentAction.JUMPING: 0.4,
+		UnitCurrentAction.RECOILING: 0.67,
 	},
+}
+
+const UNIT_CONDITION_TIMERS = {
+	# condition type: [duration, on value, off value]
+	UnitType.PLAYER: {
+		UnitCondition.IS_INVINCIBLE: [2.5, true, false],
+	},
+	UnitType.NPC: {},
 }
 
 # Position relative to player's origin, list of directions to check for collision
@@ -151,6 +167,7 @@ const UNIT_SPRITES = {
 		SpriteClass.IDLE: [false, ["Idle"]],
 		SpriteClass.WALK: [true, ["Walk"]],
 		SpriteClass.JUMP: [false, ["Jump1", "Jump2"]],
+		SpriteClass.RECOIL: [false, ["Recoil"]],
 	},
 	UnitType.NPC: {
 		SpriteClass.IDLE: [false, ["Idle"]],
@@ -175,3 +192,6 @@ const MAX_FALL_SPEED = -12
 const ACCELERATION = 35
 const QUANTUM_DIST = 0.001
 const SPAWN_DISTANCE = 10
+
+# specialized constants
+const FLASH_CYCLE = 0.15

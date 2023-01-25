@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Units/NPCExample.gd" type="Script" id=1]
 [ext_resource path="res://Graphics/Units/NPC.png" type="Texture" id=2]
@@ -6,7 +6,11 @@
 [ext_resource path="res://Graphics/Units/NPCJump2.png" type="Texture" id=4]
 [ext_resource path="res://Graphics/Units/NPCJump1.png" type="Texture" id=5]
 
-[node name="NPC" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 14 )
+
+[node name="NPC" type="Area2D"]
+collision_mask = 2
 script = ExtResource( 1 )
 unit_type = 1
 tick_duration = 2.0
@@ -16,6 +20,10 @@ action_sequence_map = {
 action_duration_map = {
 "MOVE": 1.0
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -14 )
+shape = SubResource( 1 )
 
 [node name="Idle" type="Sprite" parent="."]
 visible = false

@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 # base class for units
 # we assume every unit can move and jump so we see their handlers here
@@ -18,6 +18,7 @@ var actions = {}
 var unit_conditions = {}
 var facing : int = Constants.Direction.RIGHT
 var current_action_time_elapsed : float = 0
+var unit_condition_timers = {}
 
 var pos : Vector2
 var h_speed : float = 0
@@ -28,12 +29,20 @@ var last_contacted_ground_collider : Array
 var current_sprite : Node2D
 var sprite_class_nodes = {} # sprite class to node list dictionary
 
+var hit_queued : bool = false
+var hit_dir : int
+var time_elapsed : float
+var is_flash : bool = false
+var flash_start_timestamp : float
+
 # Called when the node enters the scene tree for the first time
 func _ready():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
 	for condition_num in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
 		set_unit_condition(condition_num, Constants.UNIT_TYPE_CONDITIONS[unit_type][condition_num])
+	for condition_num in Constants.UNIT_CONDITION_TIMERS[unit_type].keys():
+		unit_condition_timers[condition_num] = 0
 	target_move_speed = Constants.UNIT_TYPE_MOVE_SPEEDS[unit_type]
 	
 	# populate sprite_class_nodes
@@ -59,6 +68,11 @@ func set_unit_condition(condition_type : int, condition):
 	assert(condition_type in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys())
 	unit_conditions[condition_type] = condition
 
+func set_unit_condition_with_timer(condition_type : int):
+	assert(condition_type in Constants.UNIT_CONDITION_TIMERS[unit_type].keys())
+	set_unit_condition(condition_type, Constants.UNIT_CONDITION_TIMERS[unit_type][condition_type][1])
+	unit_condition_timers[condition_type] = Constants.UNIT_CONDITION_TIMERS[unit_type][condition_type][0]
+
 func get_condition(condition_num : int, default):
 	if condition_num in Constants.UNIT_TYPE_CONDITIONS[unit_type].keys():
 		return unit_conditions[condition_num]
@@ -73,12 +87,23 @@ func reset_actions():
 	for action_num in Constants.UNIT_TYPE_ACTIONS[unit_type]:
 		actions[action_num] = false
 
-func process_unit(delta):
+func process_unit(delta, time_elapsed : float):
 	current_action_time_elapsed += delta
 	execute_actions(delta)
 	handle_idle()
+	advance_timers(delta)
+	handle_recoil() # must be before handle_moving_status
 	handle_moving_status(delta)
 	reset_current_action()
+	self.time_elapsed = time_elapsed
+
+func advance_timers(delta):
+	for condition_num in Constants.UNIT_CONDITION_TIMERS[unit_type].keys():
+		unit_condition_timers[condition_num] = move_toward(unit_condition_timers[condition_num], 0, delta)
+		if unit_condition_timers[condition_num] == 0:
+			set_unit_condition(condition_num, Constants.UNIT_CONDITION_TIMERS[unit_type][condition_num][2])
+			if condition_num == Constants.UnitCondition.IS_INVINCIBLE:
+				invincibility_ended()
 
 func reset_current_action():
 	# process CURRENT_ACTION
@@ -132,6 +157,10 @@ func move():
 	if (get_current_action() == Constants.UnitCurrentAction.IDLE
 	and unit_conditions[Constants.UnitCondition.IS_ON_GROUND]):
 		set_sprite(Constants.SpriteClass.WALK)
+
+func handle_recoil():
+	# implemented in subclass
+	pass
 
 func handle_moving_status(delta):
 	# what we have: facing, current speed, move status, grounded
@@ -213,6 +242,13 @@ func set_sprite(sprite_class : int, index : int = 0):
 	if true_index > len(node_list) - 1:
 		true_index = 0
 	var new_sprite : Node2D = node_list[true_index]
+	if (is_flash):
+		if int((time_elapsed - flash_start_timestamp) / Constants.FLASH_CYCLE) % 2 == 1:
+			new_sprite.set_modulate(Color(2, 1, 1))
+		else:
+			new_sprite.set_modulate(Color(1, .5, .5))
+	else:
+		new_sprite.set_modulate(Color(1, 1, 1))
 	if current_sprite == null or current_sprite != new_sprite:
 		if current_sprite != null:
 			current_sprite.visible = false
@@ -231,3 +267,16 @@ func react(delta):
 	pos.y = pos.y + v_speed * delta
 	position.x = pos.x * Constants.GRID_SIZE * Constants.SCALE_FACTOR
 	position.y = -1 * pos.y * Constants.GRID_SIZE * Constants.SCALE_FACTOR
+
+func hit(dir : int):
+	# implemented in subclass
+	hit_queued = true
+	hit_dir = dir
+
+func start_flash():
+	is_flash = true
+	flash_start_timestamp = time_elapsed
+
+func invincibility_ended():
+	# implemented in subclass
+	pass

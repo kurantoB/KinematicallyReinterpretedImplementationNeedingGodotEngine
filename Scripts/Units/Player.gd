@@ -67,23 +67,23 @@ func handle_recoil():
 	if get_condition(Constants.UnitCondition.IS_ON_GROUND, true):
 		if h_speed > 0:
 			if hit_dir == Constants.Direction.LEFT:
-				v_speed += RECOIL_PUSHBACK
-			else:
 				v_speed -= RECOIL_PUSHBACK
+			else:
+				v_speed += RECOIL_PUSHBACK
 		elif h_speed < 0:
 			if hit_dir == Constants.Direction.LEFT:
-				v_speed -= RECOIL_PUSHBACK
-			else:
 				v_speed += RECOIL_PUSHBACK
+			else:
+				v_speed -= RECOIL_PUSHBACK
 		else:
-			v_speed = RECOIL_PUSHBACK
+			v_speed = -RECOIL_PUSHBACK
 			if hit_dir == Constants.Direction.LEFT:
 				h_speed = Constants.QUANTUM_DIST
 			else:
 				h_speed = -Constants.QUANTUM_DIST
-		if v_speed < 0:
+		if v_speed > 0:
 			h_speed *= -1
-			v_speed = abs(v_speed)
+			v_speed = -v_speed
 	else:
 		if hit_dir == Constants.Direction.LEFT:
 			h_speed += RECOIL_PUSHBACK

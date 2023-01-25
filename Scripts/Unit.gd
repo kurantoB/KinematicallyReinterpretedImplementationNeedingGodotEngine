@@ -92,8 +92,8 @@ func process_unit(delta, time_elapsed : float):
 	execute_actions(delta)
 	handle_idle()
 	advance_timers(delta)
-	handle_recoil() # must be before handle_moving_status
 	handle_moving_status(delta)
+	handle_recoil() # must be after handle_moving_status
 	reset_current_action()
 	self.time_elapsed = time_elapsed
 
